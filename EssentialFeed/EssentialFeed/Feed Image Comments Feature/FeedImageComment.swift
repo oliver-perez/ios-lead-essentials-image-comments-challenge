@@ -8,6 +8,10 @@
 
 import Foundation
 
+struct FeedImageComments {
+	let items: [FeedImageComment]
+}
+
 struct FeedImageComment {
 	let id: UUID
 	let message:	String
