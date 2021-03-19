@@ -7,8 +7,21 @@
 //
 
 import XCTest
+import EssentialFeed
 
 final class RemoteFeedImageCommentsLoader {
+	
+	private let client: HTTPClient
+	private let url: URL
+	
+	init(url: URL, client: HTTPClient) {
+		self.client = client
+		self.url = url
+	}
+	
+	func load() {
+		client.get(from: url, completion: { _ in })
+	}
 	
 }
 
@@ -20,10 +33,19 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 		XCTAssertTrue(client.requestedURLs.isEmpty)
 	}
 	
+	func test_load_requestsDataFromURL() {
+		let url = URL(string: "https://a-given-url.com")!
+		let (sut, client) = makeSUT(url: url)
+		
+		sut.load()
+		
+		XCTAssertEqual(client.requestedURLs, [url])
+	}
+	
 	// MARK: - Helpers
-	private func makeSUT() -> (sut: RemoteFeedImageCommentsLoader, client: HTTPClientSpy) {
-		let sut = RemoteFeedImageCommentsLoader()
+	private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteFeedImageCommentsLoader, client: HTTPClientSpy) {
 		let client = HTTPClientSpy()
+		let sut = RemoteFeedImageCommentsLoader(url: url, client: client)
 		
 		return (sut: sut, client: client)
 	}
