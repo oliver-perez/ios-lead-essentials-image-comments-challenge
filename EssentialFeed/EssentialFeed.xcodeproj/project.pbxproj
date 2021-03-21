@@ -86,6 +86,7 @@
 		AC22EEF126031192001D4819 /* FeedImageComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22EEF026031192001D4819 /* FeedImageComment.swift */; };
 		AC22EEF72603130B001D4819 /* FeedImageCommentsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22EEF62603130B001D4819 /* FeedImageCommentsLoader.swift */; };
 		AC22EF0B26046404001D4819 /* LoadFeedImageCommentsFromRemoteUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22EF0A26046404001D4819 /* LoadFeedImageCommentsFromRemoteUseCaseTests.swift */; };
+		AC69DBBF260714C500F8F1FE /* RemoteFeedImageCommentsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC69DBBE260714C500F8F1FE /* RemoteFeedImageCommentsLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,6 +193,7 @@
 		AC22EEF026031192001D4819 /* FeedImageComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageComment.swift; sourceTree = "<group>"; };
 		AC22EEF62603130B001D4819 /* FeedImageCommentsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsLoader.swift; sourceTree = "<group>"; };
 		AC22EF0A26046404001D4819 /* LoadFeedImageCommentsFromRemoteUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFeedImageCommentsFromRemoteUseCaseTests.swift; sourceTree = "<group>"; };
+		AC69DBBE260714C500F8F1FE /* RemoteFeedImageCommentsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedImageCommentsLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -446,6 +448,7 @@
 				08897BEC23393A2E0029F5E4 /* RemoteFeedImageDataLoader.swift */,
 				08C0880B21E4EED600ACFB30 /* HTTPClient.swift */,
 				0844769021FCBE7D00439BE9 /* URLSessionHTTPClient.swift */,
+				AC69DBBE260714C500F8F1FE /* RemoteFeedImageCommentsLoader.swift */,
 			);
 			path = "Feed API";
 			sourceTree = "<group>";
@@ -729,6 +732,7 @@
 				080EDF0C21B6DAE800813479 /* FeedImage.swift in Sources */,
 				0804862E236345A40087ED48 /* FeedImageDataCache.swift in Sources */,
 				08C4E988233E13CC00D939F8 /* FeedImageDataStore.swift in Sources */,
+				AC69DBBF260714C500F8F1FE /* RemoteFeedImageCommentsLoader.swift in Sources */,
 				087148B6232BEAAF00D6BE1A /* FeedPresenter.swift in Sources */,
 				0844769121FCBE7D00439BE9 /* URLSessionHTTPClient.swift in Sources */,
 				08897BEF233A1C8E0029F5E4 /* HTTPURLResponse+StatusCode.swift in Sources */,

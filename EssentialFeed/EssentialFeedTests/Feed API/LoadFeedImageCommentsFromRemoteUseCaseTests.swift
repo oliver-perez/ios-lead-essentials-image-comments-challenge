@@ -9,22 +9,6 @@
 import XCTest
 import EssentialFeed
 
-final class RemoteFeedImageCommentsLoader {
-	
-	private let client: HTTPClient
-	private let url: URL
-	
-	init(url: URL, client: HTTPClient) {
-		self.client = client
-		self.url = url
-	}
-	
-	func load() {
-		client.get(from: url, completion: { _ in })
-	}
-	
-}
-
 class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 
 	func test_init_doesNotRequestDataFromURL() {
