@@ -50,13 +50,16 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 	func test_load_deliversErrorOnNon200HTTPResponse() {
 		let (sut, client) = makeSUT()
 		
-		var capturedErrors = [RemoteFeedImageCommentsLoader.Error]()
-		sut.load { capturedErrors.append($0) }
+		let samples = [199, 201, 300, 400, 500]
 		
-		client.complete(withStatusCode: 400, data: anyData())
-		
-		XCTAssertEqual(capturedErrors, [.invalidData])
-}
+		samples.enumerated().forEach { index, code in
+			var capturedErrors = [RemoteFeedImageCommentsLoader.Error]()
+			sut.load { capturedErrors.append($0) }
+			
+			client.complete(withStatusCode: code, data: anyData(), at: index)
+			XCTAssertEqual(capturedErrors, [.invalidData])
+		}
+	}
 	
 	// MARK: - Helpers
 	private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteFeedImageCommentsLoader, client: HTTPClientSpy) {
