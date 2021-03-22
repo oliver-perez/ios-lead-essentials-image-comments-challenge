@@ -39,12 +39,12 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 	func test_load_deliversErrorOnClientError() {
 		let (sut, client) = makeSUT()
 		
-		var capturedError: RemoteFeedImageCommentsLoader.Error?
-		sut.load { error in capturedError = error }
+		var capturedErrors = [RemoteFeedImageCommentsLoader.Error]()
+		sut.load { capturedErrors.append($0) }
 		
 		client.complete(with: anyNSError())
 		
-		XCTAssertEqual(capturedError, .connectivity)
+		XCTAssertEqual(capturedErrors, [.connectivity])
 }
 	
 	// MARK: - Helpers
