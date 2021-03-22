@@ -15,6 +15,7 @@ public final class RemoteFeedImageCommentsLoader {
 	
 	public enum Error: Swift.Error {
 		case connectivity
+		case invalidData
 	}
 	
 	public init(url: URL, client: HTTPClient) {
@@ -23,8 +24,12 @@ public final class RemoteFeedImageCommentsLoader {
 	}
 	
 	public func load(completion: @escaping (Error) -> Void) {
-		client.get(from: url) { error in
-			completion(.connectivity)
+		client.get(from: url) { result in
+			if case .failure = result {
+				completion(.connectivity)
+			} else {
+				completion(.invalidData)
+			}
 		}
 	}
 	

@@ -47,6 +47,17 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 		XCTAssertEqual(capturedErrors, [.connectivity])
 }
 	
+	func test_load_deliversErrorOnNon200HTTPResponse() {
+		let (sut, client) = makeSUT()
+		
+		var capturedErrors = [RemoteFeedImageCommentsLoader.Error]()
+		sut.load { capturedErrors.append($0) }
+		
+		client.complete(withStatusCode: 400, data: anyData())
+		
+		XCTAssertEqual(capturedErrors, [.invalidData])
+}
+	
 	// MARK: - Helpers
 	private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteFeedImageCommentsLoader, client: HTTPClientSpy) {
 		let client = HTTPClientSpy()
