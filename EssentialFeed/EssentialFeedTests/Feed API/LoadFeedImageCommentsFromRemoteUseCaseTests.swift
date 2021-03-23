@@ -65,6 +65,12 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 		})
 	}
 	
+	func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() {
+		let (sut, client) = makeSUT()
+		
+		
+	}
+	
 	// MARK: - Helpers
 	private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteFeedImageCommentsLoader, client: HTTPClientSpy) {
 		let client = HTTPClientSpy()
@@ -74,12 +80,12 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 	}
 	
 	private func expect(_ sut: RemoteFeedImageCommentsLoader, toCompleteWithError error: RemoteFeedImageCommentsLoader.Error, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
-		var capturedErrors = [RemoteFeedImageCommentsLoader.Error]()
-		sut.load { capturedErrors.append($0) }
+		var capturedResults = [RemoteFeedImageCommentsLoader.Result]()
+		sut.load { capturedResults.append($0) }
 		
 		action()
 		
-		XCTAssertEqual(capturedErrors, [error], file: file, line: line)
+		XCTAssertEqual(capturedResults, [.failure(error)], file: file, line: line)
 	}
 	
 }

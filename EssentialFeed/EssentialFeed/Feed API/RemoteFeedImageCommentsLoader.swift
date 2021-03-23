@@ -18,17 +18,19 @@ public final class RemoteFeedImageCommentsLoader {
 		case invalidData
 	}
 	
+	public typealias Result = Swift.Result<[FeedImageComment], Error>
+	
 	public init(url: URL, client: HTTPClient) {
 		self.url = url
 		self.client = client
 	}
 	
-	public func load(completion: @escaping (Error) -> Void) {
+	public func load(completion: @escaping (Result) -> Void) {
 		client.get(from: url) { result in
 			if case .failure = result {
-				completion(.connectivity)
+				completion(.failure(.connectivity))
 			} else {
-				completion(.invalidData)
+				completion(.failure(.invalidData))
 			}
 		}
 	}

@@ -8,17 +8,13 @@
 
 import Foundation
 
-struct FeedImageComments {
-	let items: [FeedImageComment]
-}
-
-struct FeedImageComment {
+public struct FeedImageComment: Equatable {
 	let id: UUID
 	let message:	String
 	let creationDate:	Date
 	let author:	ImageCommentAuthor
 }
 
-struct ImageCommentAuthor {
+struct ImageCommentAuthor: Equatable {
 	let username: String
 }
