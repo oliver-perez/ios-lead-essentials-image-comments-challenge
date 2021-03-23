@@ -10,7 +10,7 @@ import XCTest
 import EssentialFeed
 
 class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
-
+	
 	func test_init_doesNotRequestDataFromURL() {
 		let (_, client) = makeSUT()
 		
@@ -39,13 +39,10 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 	func test_load_deliversErrorOnClientError() {
 		let (sut, client) = makeSUT()
 		
-		var capturedErrors = [RemoteFeedImageCommentsLoader.Error]()
-		sut.load { capturedErrors.append($0) }
-		
-		client.complete(with: anyNSError())
-		
-		XCTAssertEqual(capturedErrors, [.connectivity])
-}
+		expect(sut, toCompleteWithError: .connectivity, when: {
+			client.complete(with: anyNSError())
+		})
+	}
 	
 	func test_load_deliversErrorOnNon200HTTPResponse() {
 		let (sut, client) = makeSUT()
@@ -53,24 +50,19 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 		let samples = [199, 201, 300, 400, 500]
 		
 		samples.enumerated().forEach { index, code in
-			var capturedErrors = [RemoteFeedImageCommentsLoader.Error]()
-			sut.load { capturedErrors.append($0) }
-			
-			client.complete(withStatusCode: code, data: anyData(), at: index)
-			XCTAssertEqual(capturedErrors, [.invalidData])
+			expect(sut, toCompleteWithError: .invalidData, when: {
+				client.complete(withStatusCode: code, data: anyData(), at: index)
+			})
 		}
 	}
 	
 	func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
 		let (sut, client) = makeSUT()
 		
-		var capturedErrors = [RemoteFeedImageCommentsLoader.Error]()
-		sut.load { capturedErrors.append($0) }
-
-		let invalidJSON = Data("Invalid json".utf8)
-		client.complete(withStatusCode: 200, data: invalidJSON)
-		
-		XCTAssertEqual(capturedErrors, [.invalidData])
+		expect(sut, toCompleteWithError: .invalidData, when: {
+			let invalidJSON = Data("Invalid json".utf8)
+			client.complete(withStatusCode: 200, data: invalidJSON)
+		})
 	}
 	
 	// MARK: - Helpers
@@ -80,5 +72,14 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 		
 		return (sut: sut, client: client)
 	}
-
+	
+	private func expect(_ sut: RemoteFeedImageCommentsLoader, toCompleteWithError error: RemoteFeedImageCommentsLoader.Error, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
+		var capturedErrors = [RemoteFeedImageCommentsLoader.Error]()
+		sut.load { capturedErrors.append($0) }
+		
+		action()
+		
+		XCTAssertEqual(capturedErrors, [error], file: file, line: line)
+	}
+	
 }
