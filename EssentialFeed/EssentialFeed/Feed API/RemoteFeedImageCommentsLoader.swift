@@ -27,11 +27,16 @@ public final class RemoteFeedImageCommentsLoader {
 	
 	public func load(completion: @escaping (Result) -> Void) {
 		client.get(from: url) { result in
-			if case .failure = result {
-				completion(.failure(.connectivity))
-			} else {
-				completion(.failure(.invalidData))
-			}
+			
+			switch result {
+			case let .success((data, _)):
+				if let _ = try? JSONSerialization.jsonObject(with: data) {
+					completion(.success([]))
+				} else {
+					completion(.failure(.invalidData))
+				}
+			case .failure:
+				completion(.failure(.connectivity))			}
 		}
 	}
 	
