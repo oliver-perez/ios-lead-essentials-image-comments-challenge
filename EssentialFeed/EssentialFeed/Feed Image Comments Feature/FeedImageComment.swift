@@ -8,13 +8,37 @@
 
 import Foundation
 
-public struct FeedImageComment: Equatable, Decodable {
-	let id: UUID
-	let message:	String
-	let creationDate:	Date
-	let author:	ImageCommentAuthor
+public struct FeedImageComment: Equatable {
+	public let id: UUID
+	public let message:	String
+	public let creationDate: String
+	public let author: ImageCommentAuthor
+	
+	public init(id: UUID,
+							message: String,
+							creationDate: String,
+							author: ImageCommentAuthor) {
+		self.id = id
+		self.message = message
+		self.creationDate = creationDate
+		self.author = author
+	}
+	
 }
 
-struct ImageCommentAuthor: Equatable, Decodable {
-	let username: String
+public struct ImageCommentAuthor: Equatable, Decodable {
+	public let username: String
+	
+	public init(username: String) {
+		self.username = username
+	}
+}
+
+extension FeedImageComment: Decodable {
+	private enum CodingKeys: String, CodingKey {
+		case id
+		case message
+		case creationDate = "created_at"
+		case author
+	}
 }

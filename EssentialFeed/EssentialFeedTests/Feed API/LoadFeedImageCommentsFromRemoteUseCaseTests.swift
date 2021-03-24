@@ -74,6 +74,37 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 		})
 	}
 	
+	func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
+		let (sut, client) = makeSUT()
+		
+		let item1 = FeedImageComment(id: UUID(), message: "", creationDate: "2020-05-20T11:24:59+0000", author: .init(username: ""))
+		
+		let item1JSON: [String: Any] = [
+			"id": item1.id.uuidString,
+			"message": item1.message,
+			"created_at": item1.creationDate,
+			"author": ["username": item1.author.username]
+		]
+		
+		let item2 = FeedImageComment(id: UUID(), message: "", creationDate: "2021-05-20T11:24:59+0000", author: .init(username: ""))
+		
+		let item2JSON: [String: Any] = [
+			"id": item2.id.uuidString,
+			"message": item2.message,
+			"created_at": item2.creationDate,
+			"author": ["username": item2.author.username]
+		]
+		
+		let itemsJSON = [
+			"items": [item1JSON, item2JSON]
+		]
+		
+		expect(sut, toCompleteWith: .success([item1, item2]), when: {
+			let json = try! JSONSerialization.data(withJSONObject: itemsJSON)
+			client.complete(withStatusCode: 200, data: json)
+		})
+	}
+	
 	// MARK: - Helpers
 	private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteFeedImageCommentsLoader, client: HTTPClientSpy) {
 		let client = HTTPClientSpy()
