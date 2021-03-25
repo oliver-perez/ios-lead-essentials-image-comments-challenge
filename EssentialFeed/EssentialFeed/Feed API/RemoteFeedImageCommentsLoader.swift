@@ -31,7 +31,7 @@ public final class RemoteFeedImageCommentsLoader {
 			switch result {
 			case let .success((data, response)):
 				if response.statusCode == 200, let root = try? JSONDecoder().decode(Root.self, from: data) {
-					completion(.success(root.items))
+					completion(.success(root.items.map { $0.dto }))
 				} else {
 					completion(.failure(.invalidData))
 				}
@@ -43,5 +43,49 @@ public final class RemoteFeedImageCommentsLoader {
 }
 
 private struct Root: Decodable {
-	let items: [FeedImageComment]
+	let items: [RemoteFeedImageComment]
+}
+
+private struct RemoteFeedImageComment {
+	let id: UUID
+	let message:	String
+	let creationDate: String
+	let author: RemoteImageCommentAuthor
+	
+	init(id: UUID,
+			 message: String,
+			 creationDate: String,
+			 author: RemoteImageCommentAuthor) {
+		self.id = id
+		self.message = message
+		self.creationDate = creationDate
+		self.author = author
+	}
+}
+
+extension RemoteFeedImageComment {
+	var dto: FeedImageComment  {
+		.init(id: id,
+					message: message,
+					creationDate: creationDate,
+					author: .init(username: author.username))
+	}
+}
+
+extension RemoteFeedImageComment: Decodable {
+	private enum CodingKeys: String, CodingKey {
+		case id
+		case message
+		case creationDate = "created_at"
+		case author
+	}
+}
+
+
+private struct RemoteImageCommentAuthor: Decodable {
+	public let username: String
+	
+	public init(username: String) {
+		self.username = username
+	}
 }

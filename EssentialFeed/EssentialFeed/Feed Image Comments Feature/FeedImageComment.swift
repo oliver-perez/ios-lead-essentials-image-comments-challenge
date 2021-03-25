@@ -33,12 +33,3 @@ public struct ImageCommentAuthor: Equatable, Decodable {
 		self.username = username
 	}
 }
-
-extension FeedImageComment: Decodable {
-	private enum CodingKeys: String, CodingKey {
-		case id
-		case message
-		case creationDate = "created_at"
-		case author
-	}
-}
