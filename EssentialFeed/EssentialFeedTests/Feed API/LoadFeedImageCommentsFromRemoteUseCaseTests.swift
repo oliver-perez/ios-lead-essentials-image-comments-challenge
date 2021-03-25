@@ -77,30 +77,15 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 	func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
 		let (sut, client) = makeSUT()
 		
-		let item1 = FeedImageComment(id: UUID(), message: "", creationDate: "2020-05-20T11:24:59+0000", author: .init(username: ""))
+		let item1 = makeItem(id: UUID(), message: "", creationDate: "2020-05-20T11:24:59+0000", username: "")
 		
-		let item1JSON: [String: Any] = [
-			"id": item1.id.uuidString,
-			"message": item1.message,
-			"created_at": item1.creationDate,
-			"author": ["username": item1.author.username]
-		]
+		let item2 = makeItem(id: UUID(), message: "", creationDate: "2020-05-20T11:24:59+0000", username: "")
 		
-		let item2 = FeedImageComment(id: UUID(), message: "", creationDate: "2021-05-20T11:24:59+0000", author: .init(username: ""))
+		let items = [item1.model, item2.model]
+		let itemsJSON = [item1.json, item2.json]
 		
-		let item2JSON: [String: Any] = [
-			"id": item2.id.uuidString,
-			"message": item2.message,
-			"created_at": item2.creationDate,
-			"author": ["username": item2.author.username]
-		]
-		
-		let itemsJSON = [
-			"items": [item1JSON, item2JSON]
-		]
-		
-		expect(sut, toCompleteWith: .success([item1, item2]), when: {
-			let json = try! JSONSerialization.data(withJSONObject: itemsJSON)
+		expect(sut, toCompleteWith: .success(items), when: {
+			let json = makeItemsJSON(itemsJSON)
 			client.complete(withStatusCode: 200, data: json)
 		})
 	}
@@ -111,6 +96,25 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 		let sut = RemoteFeedImageCommentsLoader(url: url, client: client)
 		
 		return (sut: sut, client: client)
+	}
+	
+	private func makeItem(id: UUID, message: String, creationDate: String, username: String) -> (model: FeedImageComment, json: [String: Any]) {
+		let item: FeedImageComment = .init(id: id, message: message, creationDate: creationDate, author: .init(username: username))
+		
+		let json: [String: Any] = [
+			"id": id.uuidString,
+			"message": message,
+			"created_at": creationDate,
+			"author": ["username": username]
+		]
+		
+		return (item, json)
+	}
+	
+	private func makeItemsJSON(_ items: [[String : Any]]) -> Data {
+		let json = ["items": items]
+
+		return try! JSONSerialization.data(withJSONObject: json)
 	}
 	
 	private func expect(_ sut: RemoteFeedImageCommentsLoader, toCompleteWith result: RemoteFeedImageCommentsLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
