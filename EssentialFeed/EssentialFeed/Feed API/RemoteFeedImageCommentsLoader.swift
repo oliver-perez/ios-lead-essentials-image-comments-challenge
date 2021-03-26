@@ -30,7 +30,7 @@ public final class RemoteFeedImageCommentsLoader {
 
 			switch result {
 			case let .success((data, response)):
-				if let items = try? RemoteFeedImageCommentMapper.map(data, response) {
+				if let items = try? FeedImageCommentsMapper.map(data, response) {
 					completion(.success(items))
 				} else {
 					completion(.failure(.invalidData))
@@ -40,62 +40,4 @@ public final class RemoteFeedImageCommentsLoader {
 		}
 	}
 	
-}
-
-final private class RemoteFeedImageCommentMapper {
-	
-	private struct Root: Decodable {
-		let items: [RemoteFeedImageComment]
-	}
-
-	private struct RemoteFeedImageComment: Decodable {
-		let id: UUID
-		let message:	String
-		let creationDate: String
-		let author: RemoteImageCommentAuthor
-		
-		var dto: FeedImageComment  {
-			.init(id: id,
-						message: message,
-						creationDate: creationDate,
-						author: .init(username: author.username))
-		}
-		
-		init(id: UUID,
-				 message: String,
-				 creationDate: String,
-				 author: RemoteImageCommentAuthor) {
-			self.id = id
-			self.message = message
-			self.creationDate = creationDate
-			self.author = author
-		}
-		
-			private enum CodingKeys: String, CodingKey {
-				case id
-				case message
-				case creationDate = "created_at"
-				case author
-			}
-		
-	}
-	
-	private struct RemoteImageCommentAuthor: Decodable {
-		public let username: String
-		
-		public init(username: String) {
-			self.username = username
-		}
-	}
-	
-	static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [FeedImageComment] {
-		guard response.isOK else {
-			throw RemoteFeedImageCommentsLoader.Error.invalidData
-		}
-		
-		return try JSONDecoder()
-			.decode(Root.self, from: data)
-			.items
-			.map(\.dto)
-	}
 }
