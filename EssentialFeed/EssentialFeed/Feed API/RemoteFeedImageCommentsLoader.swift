@@ -89,7 +89,7 @@ final private class RemoteFeedImageCommentMapper {
 	}
 	
 	static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [FeedImageComment] {
-		guard response.statusCode == 200 else {
+		guard response.isOK else {
 			throw RemoteFeedImageCommentsLoader.Error.invalidData
 		}
 		
