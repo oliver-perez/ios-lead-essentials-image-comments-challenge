@@ -30,11 +30,7 @@ public final class RemoteFeedImageCommentsLoader {
 
 			switch result {
 			case let .success((data, response)):
-				if let items = try? FeedImageCommentsMapper.map(data, response) {
-					completion(.success(items))
-				} else {
-					completion(.failure(.invalidData))
-				}
+				completion(FeedImageCommentsMapper.map(data, response))
 			case .failure:
 				completion(.failure(.connectivity))			}
 		}

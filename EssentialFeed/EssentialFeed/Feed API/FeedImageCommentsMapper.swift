@@ -12,6 +12,10 @@ final class FeedImageCommentsMapper {
 	
 	private struct Root: Decodable {
 		let items: [RemoteFeedImageComment]
+		
+		var feedImageComments: [FeedImageComment] {
+			items.map(\.dto)
+		}
 	}
 
 	private struct RemoteFeedImageComment: Decodable {
@@ -54,14 +58,12 @@ final class FeedImageCommentsMapper {
 		}
 	}
 	
-	static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [FeedImageComment] {
-		guard response.isOK else {
-			throw RemoteFeedImageCommentsLoader.Error.invalidData
+	static func map(_ data: Data, _ response: HTTPURLResponse) -> RemoteFeedImageCommentsLoader.Result {
+		guard response.isOK,
+					let root = try? JSONDecoder().decode(Root.self, from: data) else {
+			return .failure(.invalidData)
 		}
 		
-		return try JSONDecoder()
-			.decode(Root.self, from: data)
-			.items
-			.map(\.dto)
+		return .success(root.feedImageComments)
 	}
 }
