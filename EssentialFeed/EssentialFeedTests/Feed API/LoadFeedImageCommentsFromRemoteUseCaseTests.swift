@@ -96,6 +96,9 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 		let client = HTTPClientSpy()
 		let sut = RemoteFeedImageCommentsLoader(url: url, client: client)
 		
+		trackForMemoryLeaks(sut)
+		trackForMemoryLeaks(client)
+		
 		return (sut: sut, client: client)
 	}
 	
