@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class RemoteFeedImageCommentsLoader {
+public final class RemoteFeedImageCommentsLoader: FeedImageCommentsLoader {
 	
 	private let url: URL
 	private let client: HTTPClient
@@ -18,7 +18,7 @@ public final class RemoteFeedImageCommentsLoader {
 		case invalidData
 	}
 	
-	public typealias Result = Swift.Result<[FeedImageComment], Error>
+	public typealias Result = FeedImageCommentsLoader.Result
 	
 	public init(url: URL, client: HTTPClient) {
 		self.url = url
@@ -33,7 +33,7 @@ public final class RemoteFeedImageCommentsLoader {
 			case let .success((data, response)):
 				completion(FeedImageCommentsMapper.map(data, response))
 			case .failure:
-				completion(.failure(.connectivity))			}
+				completion(.failure(Error.connectivity))			}
 		}
 	}
 	

@@ -61,7 +61,7 @@ final class FeedImageCommentsMapper {
 	static func map(_ data: Data, _ response: HTTPURLResponse) -> RemoteFeedImageCommentsLoader.Result {
 		guard response.isOK,
 					let root = try? JSONDecoder().decode(Root.self, from: data) else {
-			return .failure(.invalidData)
+			return .failure(RemoteFeedImageCommentsLoader.Error.invalidData)
 		}
 		
 		return .success(root.feedImageComments)
