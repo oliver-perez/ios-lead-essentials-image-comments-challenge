@@ -17,15 +17,13 @@ public final class RemoteFeedImageCommentsLoader: FeedImageCommentsLoader {
 		case connectivity
 		case invalidData
 	}
-	
-	public typealias Result = FeedImageCommentsLoader.Result
-	
+		
 	public init(url: URL, client: HTTPClient) {
 		self.url = url
 		self.client = client
 	}
 	
-	public func load(completion: @escaping (Result) -> Void) {
+	public func load(completion: @escaping (FeedImageCommentsLoader.Result) -> Void) {
 		client.get(from: url) { [weak self] result in
 			guard self != nil else { return }
 
