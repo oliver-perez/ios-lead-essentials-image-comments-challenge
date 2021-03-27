@@ -39,7 +39,7 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 	func test_load_deliversErrorOnClientError() {
 		let (sut, client) = makeSUT()
 		
-		expect(sut, toCompleteWith: .failure(RemoteFeedImageCommentsLoader.Error.connectivity), when: {
+		expect(sut, toCompleteWith: failure(.connectivity), when: {
 			client.complete(with: anyNSError())
 		})
 	}
@@ -50,7 +50,7 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 		let samples = [199, 201, 300, 400, 500]
 		
 		samples.enumerated().forEach { index, code in
-			expect(sut, toCompleteWith: .failure(RemoteFeedImageCommentsLoader.Error.invalidData), when: {
+			expect(sut, toCompleteWith: failure(.invalidData), when: {
 				let json = makeItemsJSON([])
 				client.complete(withStatusCode: code, data: json, at: index)
 			})
@@ -60,7 +60,7 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 	func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
 		let (sut, client) = makeSUT()
 		
-		expect(sut, toCompleteWith: .failure(RemoteFeedImageCommentsLoader.Error.invalidData), when: {
+		expect(sut, toCompleteWith: failure(.invalidData), when: {
 			let invalidJSON = Data("Invalid json".utf8)
 			client.complete(withStatusCode: 200, data: invalidJSON)
 		})
@@ -136,6 +136,9 @@ class LoadFeedImageCommentsFromRemoteUseCaseTests: XCTestCase {
 		return try! JSONSerialization.data(withJSONObject: json)
 	}
 	
+	private func failure(_ error: RemoteFeedImageCommentsLoader.Error) -> FeedImageCommentsLoader.Result {
+		.failure(error)
+	}
 	
 	private func expect(_ sut: RemoteFeedImageCommentsLoader, toCompleteWith expectedResult: RemoteFeedImageCommentsLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
 		let exp = expectation(description: "Wait for load completion")
