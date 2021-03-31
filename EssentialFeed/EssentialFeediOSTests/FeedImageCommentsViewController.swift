@@ -7,19 +7,20 @@
 //
 
 import XCTest
+import EssentialFeed
 
 final class FeedImageCommentsViewController: UIViewController {
 	
-	private var loader: FeedImageCommentsViewControllerTests.LoaderSpy?
+	private var loader: FeedImageCommentsLoader?
 	
-	convenience init(loader: FeedImageCommentsViewControllerTests.LoaderSpy) {
+	convenience init(loader: FeedImageCommentsLoader) {
 		self.init()
 		self.loader = loader
 	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		loader?.load()
+		loader?.load { _ in }
 	}
 }
 
@@ -41,12 +42,14 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 		XCTAssertEqual(loader.loadCount, 1)
 	}
 	
-	final class LoaderSpy {
+	final class LoaderSpy: FeedImageCommentsLoader {
+		
 		private(set) var loadCount = 0
 		
-		func load() {
+		func load(completion: @escaping (FeedImageCommentsLoader.Result) -> Void) {
 			loadCount += 1
 		}
+		
 	}
 	
 }
