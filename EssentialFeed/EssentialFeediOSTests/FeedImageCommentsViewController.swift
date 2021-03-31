@@ -9,7 +9,7 @@
 import XCTest
 import EssentialFeed
 
-final class FeedImageCommentsViewController: UIViewController {
+final class FeedImageCommentsViewController: UITableViewController {
 	
 	private var loader: FeedImageCommentsLoader?
 	
@@ -20,8 +20,17 @@ final class FeedImageCommentsViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		refreshControl = UIRefreshControl()
+		refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
+		
+		load()
+	}
+	
+	@objc private func load() {
 		loader?.load { _ in }
 	}
+	
 }
 
 class FeedImageCommentsViewControllerTests: XCTestCase {
@@ -38,6 +47,28 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 		sut.loadViewIfNeeded()
 		
 		XCTAssertEqual(loader.loadCount, 1)
+	}
+	
+	func test_pullToRefresh_loadsFeedImageComments() {
+		let (sut, loader) = makeSUT()
+		sut.loadViewIfNeeded()
+		
+		sut
+			.refreshControl?
+			.allTargets
+			.forEach { target in
+				sut
+					.refreshControl?
+					.actions(
+						forTarget: target,
+						forControlEvent:
+							.valueChanged)?
+					.forEach {
+						(target as NSObject).perform(Selector($0))
+					}
+			}
+
+		XCTAssertEqual(loader.loadCount, 2)
 	}
 	
 	// MARK: - Helpers
