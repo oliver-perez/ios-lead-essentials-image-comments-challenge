@@ -27,19 +27,29 @@ final class FeedImageCommentsViewController: UIViewController {
 class FeedImageCommentsViewControllerTests: XCTestCase {
 	
 	func test_init_doesNotLoadFeedImageComments() {
-		let loader = LoaderSpy()
-		_ = FeedImageCommentsViewController(loader: loader)
+		let (_, loader) = makeSUT()
 		
 		XCTAssertEqual(loader.loadCount, 0)
 	}
 	
 	func test_viewDidLoad_loadsFeedImageComments() {
-		let loader = LoaderSpy()
-		let sut = FeedImageCommentsViewController(loader: loader)
+		let (sut, loader) = makeSUT()
 		
 		sut.loadViewIfNeeded()
 		
 		XCTAssertEqual(loader.loadCount, 1)
+	}
+	
+	// MARK: - Helpers
+	
+	private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedImageCommentsViewController, loader: LoaderSpy) {
+		let loader = LoaderSpy()
+		let sut = FeedImageCommentsViewController(loader: loader)
+				
+		trackForMemoryLeaks(sut, file: file, line: line)
+		trackForMemoryLeaks(loader, file: file, line: line)
+		
+		return (sut, loader)
 	}
 	
 	final class LoaderSpy: FeedImageCommentsLoader {
