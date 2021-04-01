@@ -88,6 +88,16 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 		XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
 	}
 	
+	func test_pullToRefresh_showsHidesIndicatorOnLoaderCompletion() {
+		let (sut, loader) = makeSUT()
+		
+		sut.loadViewIfNeeded()
+		sut.refreshControl?.simulatePullToRefresh()
+		loader.completeFeedImageCommentsLoading()
+		
+		XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
+	}
+	
 	// MARK: - Helpers
 	
 	private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedImageCommentsViewController, loader: LoaderSpy) {
