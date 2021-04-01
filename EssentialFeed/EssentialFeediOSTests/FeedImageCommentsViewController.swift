@@ -28,7 +28,9 @@ final class FeedImageCommentsViewController: UITableViewController {
 	}
 	
 	@objc private func load() {
-		loader?.load { _ in }
+		loader?.load { [weak self] _ in
+			self?.refreshControl?.endRefreshing()
+		}
 	}
 	
 }
@@ -38,7 +40,7 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 	func test_init_doesNotLoadFeedImageComments() {
 		let (_, loader) = makeSUT()
 		
-		XCTAssertEqual(loader.loadCount, 0)
+		XCTAssertEqual(loader.loadCallCount, 0)
 	}
 	
 	func test_viewDidLoad_loadsFeedImageComments() {
@@ -46,7 +48,7 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 		
 		sut.loadViewIfNeeded()
 		
-		XCTAssertEqual(loader.loadCount, 1)
+		XCTAssertEqual(loader.loadCallCount, 1)
 	}
 	
 	func test_pullToRefresh_loadsFeedImageComments() {
@@ -54,10 +56,10 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 		sut.loadViewIfNeeded()
 		
 		sut.refreshControl?.simulatePullToRefresh()
-		XCTAssertEqual(loader.loadCount, 2)
+		XCTAssertEqual(loader.loadCallCount, 2)
 		
 		sut.refreshControl?.simulatePullToRefresh()
-		XCTAssertEqual(loader.loadCount, 3)
+		XCTAssertEqual(loader.loadCallCount, 3)
 	}
 	
 	func test_viewDidLoad_showsLoadingIndicator() {
@@ -66,6 +68,15 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 		sut.loadViewIfNeeded()
 		
 		XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
+	}
+	
+	func test_viewDidLoad_hidesLoadingIndicatorOnLoaderCompletion() {
+		let (sut, loader) = makeSUT()
+		
+		sut.loadViewIfNeeded()
+		loader.completeFeedImageCommentsLoading()
+		
+		XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
 	}
 	
 	// MARK: - Helpers
@@ -82,10 +93,18 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 	
 	final class LoaderSpy: FeedImageCommentsLoader {
 		
-		private(set) var loadCount = 0
+		private(set) var completions = [(FeedImageCommentsLoader.Result) -> Void]()
+		
+		var loadCallCount: Int {
+			completions.count
+		}
 		
 		func load(completion: @escaping (FeedImageCommentsLoader.Result) -> Void) {
-			loadCount += 1
+			completions.append(completion)
+		}
+		
+		func completeFeedImageCommentsLoading() {
+			completions[0](.success([]))
 		}
 		
 	}
