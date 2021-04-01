@@ -23,11 +23,12 @@ final class FeedImageCommentsViewController: UITableViewController {
 		
 		refreshControl = UIRefreshControl()
 		refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
-		refreshControl?.beginRefreshing()
 		load()
 	}
 	
 	@objc private func load() {
+		refreshControl?.beginRefreshing()
+
 		loader?.load { [weak self] _ in
 			self?.refreshControl?.endRefreshing()
 		}
@@ -37,24 +38,14 @@ final class FeedImageCommentsViewController: UITableViewController {
 
 class FeedImageCommentsViewControllerTests: XCTestCase {
 	
-	func test_init_doesNotLoadFeedImageComments() {
-		let (_, loader) = makeSUT()
+	func test_loadFeedImageCommentsActions_requestCommentsFromLoader() {
+		let (sut, loader) = makeSUT()
 		
 		XCTAssertEqual(loader.loadCallCount, 0)
-	}
-	
-	func test_viewDidLoad_loadsFeedImageComments() {
-		let (sut, loader) = makeSUT()
 		
 		sut.loadViewIfNeeded()
-		
 		XCTAssertEqual(loader.loadCallCount, 1)
-	}
-	
-	func test_userInitiatedCommentsReload_loadsFeedImageComments() {
-		let (sut, loader) = makeSUT()
-		sut.loadViewIfNeeded()
-		
+
 		sut.simulateUserInitiatedCommentsReload()
 		XCTAssertEqual(loader.loadCallCount, 2)
 		
@@ -62,39 +53,19 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 		XCTAssertEqual(loader.loadCallCount, 3)
 	}
 	
-	func test_viewDidLoad_showsLoadingIndicator() {
-		let (sut, _) = makeSUT()
+	func test_loadingIndicator_isVisibleWhileLoadingComments() {
+		let (sut, loader) = makeSUT()
 
 		sut.loadViewIfNeeded()
-		
 		XCTAssertTrue(sut.isShowingLoadingIndicator)
-	}
-	
-	func test_viewDidLoad_hidesLoadingIndicatorOnLoaderCompletion() {
-		let (sut, loader) = makeSUT()
 		
-		sut.loadViewIfNeeded()
-		loader.completeFeedImageCommentsLoading()
-		
+		loader.completeFeedImageCommentsLoading(at: 0)
 		XCTAssertFalse(sut.isShowingLoadingIndicator)
-	}
-	
-	func test_userInitiatedCommentsReload_showsLoadingIndicator() {
-		let (sut, _) = makeSUT()
-		
-		sut.loadViewIfNeeded()
+
 		sut.simulateUserInitiatedCommentsReload()
-		
 		XCTAssertTrue(sut.isShowingLoadingIndicator)
-	}
-	
-	func test_userInitiatedCommentsReload_showsHidesIndicatorOnLoaderCompletion() {
-		let (sut, loader) = makeSUT()
-		
-		sut.loadViewIfNeeded()
-		sut.simulateUserInitiatedCommentsReload()
-		loader.completeFeedImageCommentsLoading()
-		
+
+		loader.completeFeedImageCommentsLoading(at: 1)
 		XCTAssertFalse(sut.isShowingLoadingIndicator)
 	}
 	
@@ -122,8 +93,8 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 			completions.append(completion)
 		}
 		
-		func completeFeedImageCommentsLoading() {
-			completions[0](.success([]))
+		func completeFeedImageCommentsLoading(at index: Int) {
+			completions[index](.success([]))
 		}
 		
 	}
