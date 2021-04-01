@@ -91,6 +91,7 @@
 		AC96FA9826142D0400423B2B /* FeedImageCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FA9726142D0400423B2B /* FeedImageCommentsViewController.swift */; };
 		AC96FACA261439BF00423B2B /* UIControl+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FAC9261439BF00423B2B /* UIControl+TestHelpers.swift */; };
 		AC96FAD4261439C500423B2B /* UIRefreshControl+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FAD3261439C500423B2B /* UIRefreshControl+TestHelpers.swift */; };
+		AC96FAE02615913600423B2B /* FeedImageCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FADF2615913600423B2B /* FeedImageCommentsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,6 +203,7 @@
 		AC96FA9726142D0400423B2B /* FeedImageCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsViewController.swift; sourceTree = "<group>"; };
 		AC96FAC9261439BF00423B2B /* UIControl+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+TestHelpers.swift"; sourceTree = "<group>"; };
 		AC96FAD3261439C500423B2B /* UIRefreshControl+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+TestHelpers.swift"; sourceTree = "<group>"; };
+		AC96FADF2615913600423B2B /* FeedImageCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -488,6 +490,7 @@
 			children = (
 				08D917A322B92A5D003BC31B /* Info.plist */,
 				08FC5AA622D5F33000148E12 /* Feed UI */,
+				AC96FADE2615912000423B2B /* Feed Image Comments UI */,
 			);
 			path = EssentialFeediOS;
 			sourceTree = "<group>";
@@ -540,6 +543,14 @@
 				AC22EEF62603130B001D4819 /* FeedImageCommentsLoader.swift */,
 			);
 			path = "Feed Image Comments Feature";
+			sourceTree = "<group>";
+		};
+		AC96FADE2615912000423B2B /* Feed Image Comments UI */ = {
+			isa = PBXGroup;
+			children = (
+				AC96FADF2615913600423B2B /* FeedImageCommentsViewController.swift */,
+			);
+			path = "Feed Image Comments UI";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -805,6 +816,7 @@
 				08B5EB5022CE328100FE8683 /* UIView+Shimmering.swift in Sources */,
 				0822D0F523058078004B3345 /* UITableView+Dequeueing.swift in Sources */,
 				08BB7EAB22C1425100F8B83C /* FeedViewController.swift in Sources */,
+				AC96FAE02615913600423B2B /* FeedImageCommentsViewController.swift in Sources */,
 				0822D0F7230581D2004B3345 /* UIImageView+Animations.swift in Sources */,
 				08B5EB4E22CE244400FE8683 /* FeedImageCell.swift in Sources */,
 				08EFE6BD22D6384100DA417A /* FeedImageCellController.swift in Sources */,

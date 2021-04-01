@@ -7,34 +7,8 @@
 //
 
 import XCTest
+import EssentialFeediOS
 import EssentialFeed
-
-final class FeedImageCommentsViewController: UITableViewController {
-	
-	private var loader: FeedImageCommentsLoader?
-	
-	convenience init(loader: FeedImageCommentsLoader) {
-		self.init()
-		self.loader = loader
-	}
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
-		refreshControl = UIRefreshControl()
-		refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
-		load()
-	}
-	
-	@objc private func load() {
-		refreshControl?.beginRefreshing()
-
-		loader?.load { [weak self] _ in
-			self?.refreshControl?.endRefreshing()
-		}
-	}
-	
-}
 
 class FeedImageCommentsViewControllerTests: XCTestCase {
 	
