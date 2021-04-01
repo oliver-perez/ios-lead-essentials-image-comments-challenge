@@ -41,32 +41,32 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 	func test_loadFeedImageCommentsActions_requestCommentsFromLoader() {
 		let (sut, loader) = makeSUT()
 		
-		XCTAssertEqual(loader.loadCallCount, 0)
+		XCTAssertEqual(loader.loadCallCount, 0, "Expected no loading requests before view is loaded")
 		
 		sut.loadViewIfNeeded()
-		XCTAssertEqual(loader.loadCallCount, 1)
+		XCTAssertEqual(loader.loadCallCount, 1, "Expected a loading request once view is loaded")
 
 		sut.simulateUserInitiatedCommentsReload()
-		XCTAssertEqual(loader.loadCallCount, 2)
+		XCTAssertEqual(loader.loadCallCount, 2, "Expected another loading request once user initiates load")
 		
 		sut.simulateUserInitiatedCommentsReload()
-		XCTAssertEqual(loader.loadCallCount, 3)
+		XCTAssertEqual(loader.loadCallCount, 3, "Expected a third loading request once user initiates another load")
 	}
 	
 	func test_loadingIndicator_isVisibleWhileLoadingComments() {
 		let (sut, loader) = makeSUT()
 
 		sut.loadViewIfNeeded()
-		XCTAssertTrue(sut.isShowingLoadingIndicator)
+		XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
 		
 		loader.completeFeedImageCommentsLoading(at: 0)
-		XCTAssertFalse(sut.isShowingLoadingIndicator)
+		XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading is completed")
 
 		sut.simulateUserInitiatedCommentsReload()
-		XCTAssertTrue(sut.isShowingLoadingIndicator)
+		XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once user initiates a reload")
 
 		loader.completeFeedImageCommentsLoading(at: 1)
-		XCTAssertFalse(sut.isShowingLoadingIndicator)
+		XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated reloading is completed")
 	}
 	
 	// MARK: - Helpers
