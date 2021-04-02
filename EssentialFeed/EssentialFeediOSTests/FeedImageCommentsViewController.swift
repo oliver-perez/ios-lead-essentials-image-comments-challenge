@@ -43,6 +43,31 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 		XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated reloading is completed")
 	}
 	
+	func test_loadCommentsCompletion_showsSuccessfullyLoadedComments() {
+		let comment0 = makeFeedImageComment(message: "A message", creationDate: "A creation date", username: "A username")
+		let comment1 = makeFeedImageComment(message: "A message", creationDate: "A creation date", username: "A username")
+		let comment2 = makeFeedImageComment(message: "A message", creationDate: "A creation date", username: "A username")
+		let comment3 = makeFeedImageComment(message: "A message", creationDate: "A creation date", username: "A username")
+
+		let (sut, loader) = makeSUT()
+
+		sut.loadViewIfNeeded()
+		XCTAssertEqual(sut.numberOfRenderedComments(), 0)
+
+		loader.completeFeedImageCommentsLoading(with: [comment0],at: 0)
+		XCTAssertEqual(sut.numberOfRenderedComments(), 1)
+		
+		let view = sut.feedImageComment(at: 0) as? FeedImageCommentCell
+		XCTAssertNotNil(view)
+		XCTAssertEqual(view?.username, comment0.author.username)
+		XCTAssertEqual(view?.date, comment0.creationDate)
+		XCTAssertEqual(view?.message, comment0.message)
+		
+		sut.simulateUserInitiatedCommentsReload()
+		loader.completeFeedImageCommentsLoading(with:  [comment0, comment1, comment2, comment3], at: 1)
+		XCTAssertEqual(sut.numberOfRenderedComments(), 4)
+	}
+	
 	// MARK: - Helpers
 	
 	private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedImageCommentsViewController, loader: LoaderSpy) {
@@ -53,6 +78,13 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 		trackForMemoryLeaks(loader, file: file, line: line)
 		
 		return (sut, loader)
+	}
+	
+	private func makeFeedImageComment(message: String, creationDate: String, username: String) -> FeedImageComment {
+		.init(id: .init(),
+					message: message,
+					creationDate: creationDate,
+					author: .init(username: username))
 	}
 	
 	final class LoaderSpy: FeedImageCommentsLoader {
@@ -67,8 +99,8 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 			completions.append(completion)
 		}
 		
-		func completeFeedImageCommentsLoading(at index: Int) {
-			completions[index](.success([]))
+		func completeFeedImageCommentsLoading(with comments: [FeedImageComment] = [], at index: Int) {
+			completions[index](.success(comments))
 		}
 		
 	}
@@ -82,5 +114,28 @@ private extension FeedImageCommentsViewController {
 	
 	var isShowingLoadingIndicator: Bool {
 		refreshControl?.isRefreshing == true
+	}
+	
+	func numberOfRenderedComments() -> Int {
+		tableView.numberOfRows(inSection: .zero)
+	}
+	
+	func feedImageComment(at row: Int) -> UITableViewCell? {
+		let ds = tableView.dataSource
+		let index = IndexPath(row: row, section: .zero)
+		
+		return ds?.tableView(tableView, cellForRowAt: index)
+	}
+}
+
+private extension FeedImageCommentCell {
+	var username: String? {
+		usernameLabel.text
+	}
+	var date: String? {
+		dateLabel.text
+	}
+	var message: String? {
+		messageLabel.text
 	}
 }

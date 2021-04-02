@@ -12,6 +12,7 @@ import EssentialFeed
 public final class FeedImageCommentsViewController: UITableViewController {
 	
 	private var loader: FeedImageCommentsLoader?
+	private var tableModel = [FeedImageComment]()
 	
 	public convenience init(loader: FeedImageCommentsLoader) {
 		self.init()
@@ -29,9 +30,25 @@ public final class FeedImageCommentsViewController: UITableViewController {
 	@objc private func load() {
 		refreshControl?.beginRefreshing()
 
-		loader?.load { [weak self] _ in
+		loader?.load { [weak self] result in
+			self?.tableModel = (try? result.get()) ?? []
+			self?.tableView.reloadData()
 			self?.refreshControl?.endRefreshing()
 		}
+	}
+	
+	public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		tableModel.count
+	}
+	
+	public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cellModel = tableModel[indexPath.row]
+		let cell = FeedImageCommentCell()
+		cell.usernameLabel.text = cellModel.author.username
+		cell.dateLabel.text = cellModel.creationDate
+		cell.messageLabel.text = cellModel.message
+		
+		return cell
 	}
 	
 }
