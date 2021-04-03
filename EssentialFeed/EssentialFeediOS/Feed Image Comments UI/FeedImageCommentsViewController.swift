@@ -31,13 +31,11 @@ public final class FeedImageCommentsViewController: UITableViewController {
 		refreshControl?.beginRefreshing()
 		
 		loader?.load { [weak self] result in
-			switch result {
-			case let .success(model):
+			if let model = try? result.get() {
 				self?.tableModel = model
 				self?.tableView.reloadData()
-				self?.refreshControl?.endRefreshing()
-			case .failure: break
 			}
+			self?.refreshControl?.endRefreshing()
 		}
 	}
 	
