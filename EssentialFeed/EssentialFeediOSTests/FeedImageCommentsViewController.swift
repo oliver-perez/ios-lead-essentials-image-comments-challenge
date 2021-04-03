@@ -62,6 +62,19 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 		assertThat(sut, isRendering: [comment0, comment1, comment2, comment3])
 	}
 	
+	func test_loadCommentsCompletion_doesNotAlterCurrentRenderingStateOnError() {
+		let comment0 = makeFeedImageComment(message: "A message", creationDate: "A creation date", username: "A username")
+		let (sut, loader) = makeSUT()
+
+		sut.loadViewIfNeeded()
+		loader.completeFeedImageCommentsLoading(with: [comment0], at: 0)
+		assertThat(sut, isRendering: [comment0])
+		
+		sut.simulateUserInitiatedCommentsReload()
+		loader.completeFeedImageCommentsLoadingWithError(at: 1)
+		assertThat(sut, isRendering: [comment0])
+	}
+	
 	// MARK: - Helpers
 	
 	private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedImageCommentsViewController, loader: LoaderSpy) {
@@ -115,6 +128,9 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 			completions[index](.success(comments))
 		}
 		
+		func completeFeedImageCommentsLoadingWithError(at index: Int) {
+			let error = NSError(domain: "An error", code: .zero)
+			completions[index](.failure(error))}
 	}
 	
 }
