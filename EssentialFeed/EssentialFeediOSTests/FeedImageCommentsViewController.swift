@@ -52,20 +52,14 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 		let (sut, loader) = makeSUT()
 
 		sut.loadViewIfNeeded()
-		XCTAssertEqual(sut.numberOfRenderedComments(), 0)
+		assertThat(sut, isRendering: [])
 
-		loader.completeFeedImageCommentsLoading(with: [comment0],at: 0)
-		XCTAssertEqual(sut.numberOfRenderedComments(), 1)
-		
-		let view = sut.feedImageComment(at: 0) as? FeedImageCommentCell
-		XCTAssertNotNil(view)
-		XCTAssertEqual(view?.username, comment0.author.username)
-		XCTAssertEqual(view?.date, comment0.creationDate)
-		XCTAssertEqual(view?.message, comment0.message)
+		loader.completeFeedImageCommentsLoading(with: [comment0], at: 0)
+    assertThat(sut, isRendering: [comment0])
 		
 		sut.simulateUserInitiatedCommentsReload()
-		loader.completeFeedImageCommentsLoading(with:  [comment0, comment1, comment2, comment3], at: 1)
-		XCTAssertEqual(sut.numberOfRenderedComments(), 4)
+		loader.completeFeedImageCommentsLoading(with: [comment0, comment1, comment2, comment3], at: 1)
+		assertThat(sut, isRendering: [comment0, comment1, comment2, comment3])
 	}
 	
 	// MARK: - Helpers
@@ -78,6 +72,24 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 		trackForMemoryLeaks(loader, file: file, line: line)
 		
 		return (sut, loader)
+	}
+	
+	private func assertThat(_ sut: FeedImageCommentsViewController, isRendering comments: [FeedImageComment], file: StaticString = #filePath, line: UInt = #line) {
+		guard sut.numberOfRenderedComments() == comments.count else {
+			return XCTFail("Expected \(comments.count) comments, got \(sut.numberOfRenderedComments()) instead", file: file, line: line)
+		}
+		
+		comments.enumerated().forEach { index, comment in
+			assertThat(sut, hasViewConfiguredFor: comment, at: index, file: file, line: line)
+		}
+	}
+	
+	private func assertThat(_ sut: FeedImageCommentsViewController, hasViewConfiguredFor comment: FeedImageComment, at index: Int, file: StaticString = #filePath, line: UInt = #line) {
+		let view = sut.feedImageComment(at: index) as? FeedImageCommentCell
+		XCTAssertNotNil(view, file: file, line: line)
+		XCTAssertEqual(view?.username, comment.author.username, file: file, line: line)
+		XCTAssertEqual(view?.date, comment.creationDate, file: file, line: line)
+		XCTAssertEqual(view?.message, comment.message, file: file, line: line)
 	}
 	
 	private func makeFeedImageComment(message: String, creationDate: String, username: String) -> FeedImageComment {
