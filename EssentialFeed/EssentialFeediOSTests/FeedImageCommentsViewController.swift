@@ -75,6 +75,20 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 		assertThat(sut, isRendering: [comment0])
 	}
 	
+	func test_cancelAnyRunningCommentsAPIRequests_whenUserNavigatesBack() {
+		var (sut, loader): (FeedImageCommentsViewController?, LoaderSpy?)
+
+		autoreleasepool {
+			(sut, loader) = makeSUT()
+			
+			sut?.loadViewIfNeeded()
+
+			sut = nil
+		}
+		
+		XCTAssertEqual(loader?.isLoadingRequest, false)
+	}
+	
 	// MARK: - Helpers
 	
 	private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedImageCommentsViewController, loader: LoaderSpy) {
@@ -120,17 +134,27 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 			completions.count
 		}
 		
+		var isLoadingRequest: Bool = false
+		
 		func load(completion: @escaping (FeedImageCommentsLoader.Result) -> Void) {
 			completions.append(completion)
+			isLoadingRequest = true
+		}
+		
+		func cancelRunningRequests() {
+			isLoadingRequest = false
 		}
 		
 		func completeFeedImageCommentsLoading(with comments: [FeedImageComment] = [], at index: Int) {
 			completions[index](.success(comments))
+			isLoadingRequest = false
 		}
 		
 		func completeFeedImageCommentsLoadingWithError(at index: Int) {
 			let error = NSError(domain: "An error", code: .zero)
-			completions[index](.failure(error))}
+			completions[index](.failure(error))
+			isLoadingRequest = false
+		}
 	}
 	
 }

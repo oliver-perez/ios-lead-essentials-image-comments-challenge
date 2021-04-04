@@ -12,4 +12,5 @@ public protocol FeedImageCommentsLoader {
 	typealias Result = Swift.Result<[FeedImageComment], Error>
 	
 	func load(completion: @escaping (Result) -> Void)
+	func cancelRunningRequests()
 }

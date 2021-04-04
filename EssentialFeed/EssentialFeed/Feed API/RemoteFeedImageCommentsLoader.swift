@@ -35,4 +35,7 @@ public final class RemoteFeedImageCommentsLoader: FeedImageCommentsLoader {
 		}
 	}
 	
+	public func cancelRunningRequests() {
+	}
+	
 }

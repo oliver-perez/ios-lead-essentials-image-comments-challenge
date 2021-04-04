@@ -53,4 +53,8 @@ public final class FeedImageCommentsViewController: UITableViewController {
 		return cell
 	}
 	
+	deinit {
+		commentsLoader?.cancelRunningRequests()
+	}
+	
 }
