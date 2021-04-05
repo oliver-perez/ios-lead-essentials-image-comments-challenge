@@ -1,5 +1,5 @@
 //
-//  FeedImageCommentsViewController.swift
+//  FeedImageCommentsViewControllerTests.swift
 //  EssentialFeediOSTests
 //
 //  Created by Oliver Jordy Pérez Escamilla on 30/03/21.
@@ -93,7 +93,7 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 	
 	private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedImageCommentsViewController, loader: LoaderSpy) {
 		let loader = LoaderSpy()
-		let sut = FeedImageCommentsViewController(loader: loader)
+		let sut = FeedImageCommentsViewController(commentsLoader: loader)
 				
 		trackForMemoryLeaks(sut, file: file, line: line)
 		trackForMemoryLeaks(loader, file: file, line: line)

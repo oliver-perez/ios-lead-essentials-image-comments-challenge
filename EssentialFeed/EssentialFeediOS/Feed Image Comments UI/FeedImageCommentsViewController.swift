@@ -10,34 +10,28 @@ import UIKit
 import EssentialFeed
 
 public final class FeedImageCommentsViewController: UITableViewController {
+	private var refreshController: FeedImageCommentsRefreshViewController?
+	private var tableModel = [FeedImageComment]() {
+		didSet {
+			tableView.reloadData()
+		}
+	}
 	
-	private var commentsLoader: FeedImageCommentsLoader?
-	private var commentsLoaderTask: FeedImageCommentLoaderTask?
-	private var tableModel = [FeedImageComment]()
-	
-	public convenience init(loader: FeedImageCommentsLoader) {
+	public convenience init(commentsLoader: FeedImageCommentsLoader) {
 		self.init()
-		self.commentsLoader = loader
+		self.refreshController = .init(commentsLoader: commentsLoader)
 	}
 	
 	public override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		refreshControl = UIRefreshControl()
-		refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
-		load()
-	}
-	
-	@objc private func load() {
-		refreshControl?.beginRefreshing()
-		
-		commentsLoaderTask = commentsLoader?.load { [weak self] result in
-			if let model = try? result.get() {
-				self?.tableModel = model
-				self?.tableView.reloadData()
-			}
-			self?.refreshControl?.endRefreshing()
+		refreshControl = refreshController?.view
+
+		refreshController?.onRefresh = { [weak self] model in
+			self?.tableModel = model
 		}
+		
+		refreshController?.refresh()
 	}
 	
 	public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,7 +49,7 @@ public final class FeedImageCommentsViewController: UITableViewController {
 	}
 	
 	deinit {
-		commentsLoaderTask?.cancel()
+		refreshController?.commentsLoaderTask?.cancel()
 	}
 	
 }
