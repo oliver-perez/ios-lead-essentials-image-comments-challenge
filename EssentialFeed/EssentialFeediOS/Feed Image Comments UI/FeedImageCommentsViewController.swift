@@ -12,6 +12,7 @@ import EssentialFeed
 public final class FeedImageCommentsViewController: UITableViewController {
 	
 	private var commentsLoader: FeedImageCommentsLoader?
+	private var commentsLoaderTask: FeedImageCommentLoaderTask?
 	private var tableModel = [FeedImageComment]()
 	
 	public convenience init(loader: FeedImageCommentsLoader) {
@@ -30,7 +31,7 @@ public final class FeedImageCommentsViewController: UITableViewController {
 	@objc private func load() {
 		refreshControl?.beginRefreshing()
 		
-		commentsLoader?.load { [weak self] result in
+		commentsLoaderTask = commentsLoader?.load { [weak self] result in
 			if let model = try? result.get() {
 				self?.tableModel = model
 				self?.tableView.reloadData()
@@ -54,7 +55,7 @@ public final class FeedImageCommentsViewController: UITableViewController {
 	}
 	
 	deinit {
-		commentsLoader?.cancelRunningRequests()
+		commentsLoaderTask?.cancel()
 	}
 	
 }

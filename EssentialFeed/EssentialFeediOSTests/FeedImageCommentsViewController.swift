@@ -136,13 +136,13 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 		
 		var isLoadingRequest: Bool = false
 		
-		func load(completion: @escaping (FeedImageCommentsLoader.Result) -> Void) {
+		func load(completion: @escaping (FeedImageCommentsLoader.Result) -> Void) -> FeedImageCommentLoaderTask {
 			completions.append(completion)
 			isLoadingRequest = true
-		}
-		
-		func cancelRunningRequests() {
-			isLoadingRequest = false
+			
+			return TaskSpy(cancelCallback: { [weak self] in
+				self?.isLoadingRequest = false
+			})
 		}
 		
 		func completeFeedImageCommentsLoading(with comments: [FeedImageComment] = [], at index: Int) {
@@ -154,6 +154,14 @@ class FeedImageCommentsViewControllerTests: XCTestCase {
 			let error = NSError(domain: "An error", code: .zero)
 			completions[index](.failure(error))
 			isLoadingRequest = false
+		}
+		
+		private struct TaskSpy: FeedImageCommentLoaderTask {
+			let cancelCallback: () -> Void
+			
+			func cancel() {
+				cancelCallback()
+			}
 		}
 	}
 	

@@ -23,7 +23,7 @@ public final class RemoteFeedImageCommentsLoader: FeedImageCommentsLoader {
 		self.client = client
 	}
 	
-	public func load(completion: @escaping (FeedImageCommentsLoader.Result) -> Void) {
+	public func load(completion: @escaping (FeedImageCommentsLoader.Result) -> Void) -> FeedImageCommentLoaderTask {
 		client.get(from: url) { [weak self] result in
 			guard self != nil else { return }
 
@@ -33,9 +33,12 @@ public final class RemoteFeedImageCommentsLoader: FeedImageCommentsLoader {
 			case .failure:
 				completion(.failure(Error.connectivity))			}
 		}
+		
+		return Task()
 	}
 	
-	public func cancelRunningRequests() {
+	private class Task: FeedImageCommentLoaderTask {
+		func cancel() {}
 	}
 	
 }
