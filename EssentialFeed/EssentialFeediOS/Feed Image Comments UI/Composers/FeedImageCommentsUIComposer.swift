@@ -15,11 +15,15 @@ public final class FeedImageCommentsUIComposer {
 	public static func feedCommentsComposedWith(commentsLoader: FeedImageCommentsLoader) -> FeedImageCommentsViewController {
 		let refreshController = FeedImageCommentsRefreshViewController(commentsLoader: commentsLoader)
 		let feedImageCommentsViewController = FeedImageCommentsViewController(refreshController: refreshController)
-		refreshController.onRefresh = { [weak feedImageCommentsViewController] model in
-			feedImageCommentsViewController?.tableModel = model.map { FeedImageCommentsCellController(model: $0) }
-		}
+		refreshController.onRefresh = adaptFeedImageCommentsToFeedImageCommentsCellControllers(forwardingTo: feedImageCommentsViewController)
 		
 		return feedImageCommentsViewController
+	}
+	
+	private static func adaptFeedImageCommentsToFeedImageCommentsCellControllers(forwardingTo controller: FeedImageCommentsViewController) -> ([FeedImageComment]) -> Void {
+		{ [weak controller] model in
+			controller?.tableModel = model.map { FeedImageCommentsCellController(model: $0) }
+		}
 	}
 
 }
