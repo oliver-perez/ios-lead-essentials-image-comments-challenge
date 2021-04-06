@@ -11,25 +11,21 @@ import EssentialFeed
 
 public final class FeedImageCommentsViewController: UITableViewController {
 	private var refreshController: FeedImageCommentsRefreshViewController?
-	private var tableModel = [FeedImageComment]() {
+	var tableModel = [FeedImageCommentsCellController]() {
 		didSet {
 			tableView.reloadData()
 		}
 	}
 	
-	public convenience init(commentsLoader: FeedImageCommentsLoader) {
+	convenience init(refreshController: FeedImageCommentsRefreshViewController) {
 		self.init()
-		self.refreshController = .init(commentsLoader: commentsLoader)
+		self.refreshController = refreshController
 	}
 	
 	public override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		refreshControl = refreshController?.view
-
-		refreshController?.onRefresh = { [weak self] model in
-			self?.tableModel = model
-		}
 		
 		refreshController?.refresh()
 	}
@@ -39,9 +35,7 @@ public final class FeedImageCommentsViewController: UITableViewController {
 	}
 	
 	public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cellModel = tableModel[indexPath.row]
-		let cellController = FeedImageCommentsCellController(model: cellModel)
-		return cellController.view()
+		tableModel[indexPath.row].view()
 	}
 	
 	deinit {
