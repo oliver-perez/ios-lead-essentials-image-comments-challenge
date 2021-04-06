@@ -40,12 +40,8 @@ public final class FeedImageCommentsViewController: UITableViewController {
 	
 	public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cellModel = tableModel[indexPath.row]
-		let cell = FeedImageCommentCell()
-		cell.usernameLabel.text = cellModel.author.username
-		cell.dateLabel.text = cellModel.creationDate
-		cell.messageLabel.text = cellModel.message
-		
-		return cell
+		let cellController = FeedImageCommentsCellController(model: cellModel)
+		return cellController.view()
 	}
 	
 	deinit {
