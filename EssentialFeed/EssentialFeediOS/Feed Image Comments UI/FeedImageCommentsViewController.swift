@@ -39,7 +39,7 @@ public final class FeedImageCommentsViewController: UITableViewController {
 	}
 	
 	deinit {
-		refreshController?.commentsLoaderTask?.cancel()
+		refreshController?.cancelCommentsLoaderTask()
 	}
 	
 }
