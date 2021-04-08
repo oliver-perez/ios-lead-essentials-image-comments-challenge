@@ -13,9 +13,10 @@ public final class FeedImageCommentsUIComposer {
 	private init() {}
 	
 	public static func feedCommentsComposedWith(commentsLoader: FeedImageCommentsLoader) -> FeedImageCommentsViewController {
-		let refreshController = FeedImageCommentsRefreshViewController(commentsLoader: commentsLoader)
+		let viewModel = FeedImageCommentsViewModel(commentsLoader: commentsLoader)
+		let refreshController = FeedImageCommentsRefreshViewController(viewModel: viewModel)
 		let feedImageCommentsViewController = FeedImageCommentsViewController(refreshController: refreshController)
-		refreshController.onRefresh = adaptFeedImageCommentsToFeedImageCommentsCellControllers(forwardingTo: feedImageCommentsViewController)
+		viewModel.onCommentsLoad = adaptFeedImageCommentsToFeedImageCommentsCellControllers(forwardingTo: feedImageCommentsViewController)
 		
 		return feedImageCommentsViewController
 	}

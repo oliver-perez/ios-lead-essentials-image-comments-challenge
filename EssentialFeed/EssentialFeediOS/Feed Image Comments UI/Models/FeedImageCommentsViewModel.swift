@@ -20,8 +20,6 @@ final class FeedImageCommentsViewModel {
 		case pending
 		case loading
 		case canceled
-		case loaded([FeedImageComment])
-		case failed
 	}
 	
 	private var state = State.pending {
@@ -31,22 +29,14 @@ final class FeedImageCommentsViewModel {
 	}
 	
 	var onChange: ((FeedImageCommentsViewModel) -> Void)?
+	var onCommentsLoad: (([FeedImageComment]) -> Void)?
 	
 	var isLoading: Bool {
 		switch state {
 		case .loading:
 			return true
-		case .failed, .pending, .loaded, .canceled:
+		case .pending, .canceled:
 			return false
-		}
-	}
-	
-	var comments: [FeedImageComment]? {
-		switch state {
-		case let .loaded(model):
-			return model
-		case .failed, .pending, .loading, .canceled:
-			return nil
 		}
 	}
 	
@@ -54,10 +44,9 @@ final class FeedImageCommentsViewModel {
 		state = .loading
 		commentsLoaderTask = commentsLoader.load { [weak self] result in
 			if let model = try? result.get() {
-				self?.state = .loaded(model)
-			} else {
-				self?.state = .failed
+				self?.onCommentsLoad?(model)
 			}
+			self?.state = .pending
 		}
 	}
 	
