@@ -10,7 +10,7 @@ import XCTest
 import EssentialFeediOS
 import EssentialFeed
 
-class FeedImageCommentsViewControllerTests: XCTestCase {
+class FeedImageCommentsViewControllerIntegrationTests: XCTestCase {
 	
 	func test_loadFeedImageCommentsActions_requestCommentsFromLoader() {
 		let (sut, loader) = makeSUT()
