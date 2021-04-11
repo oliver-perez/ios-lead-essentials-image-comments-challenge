@@ -8,33 +8,35 @@
 
 import UIKit
 
-final class FeedImageCommentsRefreshViewController: NSObject {
-	private(set) lazy var view: UIRefreshControl = binded(UIRefreshControl())
+final class FeedImageCommentsRefreshViewController: NSObject, FeedImageCommentsLoadingView {
 	
-	private let viewModel: FeedImageCommentsViewModel
+	private(set) lazy var view = loadView()
+	private let presenter: FeedImageCommentsPresenter
 	
-	init(viewModel: FeedImageCommentsViewModel) {
-		self.viewModel = viewModel
+	init(presenter: FeedImageCommentsPresenter) {
+		self.presenter = presenter
 	}
 		
 	@objc func refresh() {
-		viewModel.loadComments()
+		presenter.loadComments()
 	}
 	
-	private func binded(_ view: UIRefreshControl) -> UIRefreshControl {
-		viewModel.onLoadingStateChange = { [weak view] isLoading in
-			if isLoading {
-				view?.beginRefreshing()
-			} else {
-				view?.endRefreshing()
-			}
-		}
+	private func loadView() -> UIRefreshControl {
+		let view = UIRefreshControl()
 		view.addTarget(self, action: #selector(refresh), for: .valueChanged)
 		return view
 	}
 	
+	func display(isLoading: Bool) {
+		if isLoading {
+			view.beginRefreshing()
+		} else {
+			view.endRefreshing()
+		}
+	}
+	
 	func cancelCommentsLoaderTask() {
-		viewModel.cancelCommentsLoaderTask()
+		presenter.cancelCommentsLoaderTask()
 	}
 
 }

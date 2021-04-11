@@ -97,6 +97,7 @@
 		AC96FAD4261439C500423B2B /* UIRefreshControl+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FAD3261439C500423B2B /* UIRefreshControl+TestHelpers.swift */; };
 		AC96FAE02615913600423B2B /* FeedImageCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FADF2615913600423B2B /* FeedImageCommentsViewController.swift */; };
 		AC96FAF72616E75100423B2B /* FeedImageCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FAED2616E4F400423B2B /* FeedImageCommentCell.swift */; };
+		ACAA61522622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA61512622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,6 +215,7 @@
 		AC96FAD3261439C500423B2B /* UIRefreshControl+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+TestHelpers.swift"; sourceTree = "<group>"; };
 		AC96FADF2615913600423B2B /* FeedImageCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsViewController.swift; sourceTree = "<group>"; };
 		AC96FAED2616E4F400423B2B /* FeedImageCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentCell.swift; sourceTree = "<group>"; };
+		ACAA61512622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -500,6 +502,7 @@
 			children = (
 				08D917A322B92A5D003BC31B /* Info.plist */,
 				08FC5AA622D5F33000148E12 /* Feed UI */,
+				AC014F55261D5B3700CE3393 /* Feed Image Comments Presentation */,
 				AC96FADE2615912000423B2B /* Feed Image Comments UI */,
 			);
 			path = EssentialFeediOS;
@@ -555,12 +558,13 @@
 			path = Composers;
 			sourceTree = "<group>";
 		};
-		AC014F55261D5B3700CE3393 /* Models */ = {
+		AC014F55261D5B3700CE3393 /* Feed Image Comments Presentation */ = {
 			isa = PBXGroup;
 			children = (
 				AC014F56261D5B4200CE3393 /* FeedImageCommentsViewModel.swift */,
+				ACAA61512622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift */,
 			);
-			path = Models;
+			path = "Feed Image Comments Presentation";
 			sourceTree = "<group>";
 		};
 		AC22EEEF26031110001D4819 /* Feed Image Comments Feature */ = {
@@ -575,7 +579,6 @@
 		AC96FADE2615912000423B2B /* Feed Image Comments UI */ = {
 			isa = PBXGroup;
 			children = (
-				AC014F55261D5B3700CE3393 /* Models */,
 				AC014F4E261C187900CE3393 /* Composers */,
 				AC96FADF2615913600423B2B /* FeedImageCommentsViewController.swift */,
 				AC014F42261AAD0F00CE3393 /* FeedImageCommentsRefreshViewController.swift */,
@@ -841,6 +844,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACAA61522622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift in Sources */,
 				086AEFBE23A7E75400EE8933 /* UITableView+HeaderSizing.swift in Sources */,
 				08A3F2B2232AA1C200127C15 /* ErrorView.swift in Sources */,
 				AC014F43261AAD0F00CE3393 /* FeedImageCommentsRefreshViewController.swift in Sources */,
