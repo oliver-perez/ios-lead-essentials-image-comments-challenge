@@ -27,8 +27,8 @@ final class FeedImageCommentsRefreshViewController: NSObject, FeedImageCommentsL
 		return view
 	}
 	
-	func display(isLoading: Bool) {
-		if isLoading {
+	func display(_ viewModel: FeedImageCommentLoadingViewModel) {
+		if viewModel.isLoading {
 			view.beginRefreshing()
 		} else {
 			view.endRefreshing()

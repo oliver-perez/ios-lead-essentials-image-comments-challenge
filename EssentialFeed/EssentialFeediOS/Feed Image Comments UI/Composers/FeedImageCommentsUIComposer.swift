@@ -34,8 +34,8 @@ private final class WeakRefVirtualProxy<T: AnyObject> {
 }
 
 extension WeakRefVirtualProxy: FeedImageCommentsLoadingView where T: FeedImageCommentsLoadingView {
-	func display(isLoading: Bool) {
-		object?.display(isLoading: isLoading)
+	func display(_ viewModel: FeedImageCommentLoadingViewModel) {
+		object?.display(viewModel)
 	}
 }
 
@@ -47,8 +47,10 @@ private final class FeedImageCommentsAdapter: FeedImageCommentsView {
 		self.controller = controller
 	}
 	
-	func display(comments model: [FeedImageComment]) {
-			controller?.tableModel = model.map { FeedImageCommentsCellController(model: $0) }
+	func display(_ viewModel: FeedImageCommentsViewModel) {
+		controller?.tableModel = viewModel
+			.comments
+			.map { .init(model: $0) }
 	}
 
 }

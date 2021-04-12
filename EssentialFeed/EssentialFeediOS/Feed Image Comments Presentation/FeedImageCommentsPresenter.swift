@@ -9,12 +9,20 @@
 import Foundation
 import EssentialFeed
 
+struct FeedImageCommentLoadingViewModel {
+	let isLoading: Bool
+}
+
 protocol FeedImageCommentsLoadingView {
-	func display(isLoading: Bool)
+	func display(_ viewModel: FeedImageCommentLoadingViewModel)
+}
+
+struct FeedImageCommentsViewModel {
+	let comments: [FeedImageComment]
 }
 
 protocol FeedImageCommentsView: class {
-	func display(comments: [FeedImageComment])
+	func display(_ viewModel: FeedImageCommentsViewModel)
 }
 
 final class FeedImageCommentsPresenter {
@@ -31,12 +39,12 @@ final class FeedImageCommentsPresenter {
 	var loadingView: FeedImageCommentsLoadingView?
 
 	func loadComments() {
-		loadingView?.display(isLoading: true)
+		loadingView?.display(.init(isLoading: true))
 		commentsLoaderTask = commentsLoader.load { [weak self] result in
 			if let model = try? result.get() {
-				self?.view?.display(comments: model)
+				self?.view?.display(.init(comments: model))
 			}
-			self?.loadingView?.display(isLoading: false)
+			self?.loadingView?.display(.init(isLoading: false))
 		}
 	}
 	
