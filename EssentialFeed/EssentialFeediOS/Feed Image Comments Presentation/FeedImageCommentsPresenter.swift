@@ -9,7 +9,7 @@
 import Foundation
 import EssentialFeed
 
-protocol FeedImageCommentsLoadingView: class {
+protocol FeedImageCommentsLoadingView {
 	func display(isLoading: Bool)
 }
 
@@ -27,8 +27,8 @@ final class FeedImageCommentsPresenter {
 		self.commentsLoader = commentsLoader
 	}
 
-	weak var view: FeedImageCommentsView?
-	weak var loadingView: FeedImageCommentsLoadingView?
+	var view: FeedImageCommentsView?
+	var loadingView: FeedImageCommentsLoadingView?
 
 	func loadComments() {
 		loadingView?.display(isLoading: true)

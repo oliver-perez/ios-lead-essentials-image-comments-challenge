@@ -16,13 +16,27 @@ public final class FeedImageCommentsUIComposer {
 		let presenter = FeedImageCommentsPresenter(commentsLoader: commentsLoader)
 		let refreshController = FeedImageCommentsRefreshViewController(presenter: presenter)
 		let feedImageCommentsViewController = FeedImageCommentsViewController(refreshController: refreshController)
-		presenter.loadingView = refreshController
+		presenter.loadingView = WeakRefVirtualProxy(refreshController)
 		let adapter = FeedImageCommentsAdapter(controller: feedImageCommentsViewController)
 		presenter.view = adapter
 		
 		return feedImageCommentsViewController
 	}
 
+}
+
+private final class WeakRefVirtualProxy<T: AnyObject> {
+	private weak var object: T?
+	
+	init(_ object: T) {
+		self.object = object
+	}
+}
+
+extension WeakRefVirtualProxy: FeedImageCommentsLoadingView where T: FeedImageCommentsLoadingView {
+	func display(isLoading: Bool) {
+		object?.display(isLoading: isLoading)
+	}
 }
 
 private final class FeedImageCommentsAdapter: FeedImageCommentsView {
