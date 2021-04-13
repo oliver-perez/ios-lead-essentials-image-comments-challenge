@@ -27,28 +27,26 @@ protocol FeedImageCommentsView: class {
 
 final class FeedImageCommentsPresenter {
 	typealias Observer<T> = (T) -> Void
-	
-	private let commentsLoader: FeedImageCommentsLoader
-	var commentsLoaderTask: FeedImageCommentLoaderTask?
-	
-	init(commentsLoader: FeedImageCommentsLoader) {
-		self.commentsLoader = commentsLoader
-	}
 
 	var view: FeedImageCommentsView?
 	var loadingView: FeedImageCommentsLoadingView?
-
-	func loadComments() {
+	var commentsLoaderTask: FeedImageCommentLoaderTask?
+	
+	func didStartLoadingComments() {
 		loadingView?.display(.init(isLoading: true))
-		commentsLoaderTask = commentsLoader.load { [weak self] result in
-			if let model = try? result.get() {
-				self?.view?.display(.init(comments: model))
-			}
-			self?.loadingView?.display(.init(isLoading: false))
-		}
+	}
+	
+	func didFinishLoadingComments(with comments: [FeedImageComment]) {
+		view?.display(.init(comments: comments))
+		loadingView?.display(.init(isLoading: false))
+	}
+
+	func didFinishLoadingComments(with error: Error) {
+		loadingView?.display(.init(isLoading: false))
 	}
 	
 	func cancelCommentsLoaderTask() {
 		commentsLoaderTask?.cancel()
 	}
+	
 }

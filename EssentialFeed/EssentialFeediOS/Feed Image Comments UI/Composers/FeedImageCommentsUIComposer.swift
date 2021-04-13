@@ -13,8 +13,9 @@ public final class FeedImageCommentsUIComposer {
 	private init() {}
 	
 	public static func feedCommentsComposedWith(commentsLoader: FeedImageCommentsLoader) -> FeedImageCommentsViewController {
-		let presenter = FeedImageCommentsPresenter(commentsLoader: commentsLoader)
-		let refreshController = FeedImageCommentsRefreshViewController(loadComments: presenter.loadComments, cancelCommentsLoaderTask: presenter.cancelCommentsLoaderTask)
+		let presenter = FeedImageCommentsPresenter()
+		let presentationAdapter = FeedLoaderPresentationAdapter(presenter: presenter, commentsLoader: commentsLoader)
+		let refreshController = FeedImageCommentsRefreshViewController(loadComments: presentationAdapter.loadFeedImageComments, cancelCommentsLoaderTask: presenter.cancelCommentsLoaderTask)
 		let feedImageCommentsViewController = FeedImageCommentsViewController(refreshController: refreshController)
 		presenter.loadingView = WeakRefVirtualProxy(refreshController)
 		let adapter = FeedImageCommentsAdapter(controller: feedImageCommentsViewController)
@@ -53,4 +54,28 @@ private final class FeedImageCommentsAdapter: FeedImageCommentsView {
 			.map { .init(model: $0) }
 	}
 
+}
+
+private final class FeedLoaderPresentationAdapter {
+	private let presenter: FeedImageCommentsPresenter
+	private let commentsLoader: FeedImageCommentsLoader
+	
+	init(presenter: FeedImageCommentsPresenter, commentsLoader: FeedImageCommentsLoader) {
+		self.presenter = presenter
+		self.commentsLoader = commentsLoader
+	}
+	
+	func loadFeedImageComments() {
+		presenter.didStartLoadingComments()
+		
+		presenter.commentsLoaderTask = commentsLoader.load { [weak self] result in
+			switch result {
+			case let .success(comments):
+				self?.presenter.didFinishLoadingComments(with: comments)
+			case let .failure(error):
+				self?.presenter.didFinishLoadingComments(with: error)
+			}
+		}
+	}
+	
 }
