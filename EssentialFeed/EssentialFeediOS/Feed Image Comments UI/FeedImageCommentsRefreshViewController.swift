@@ -11,14 +11,17 @@ import UIKit
 final class FeedImageCommentsRefreshViewController: NSObject, FeedImageCommentsLoadingView {
 	
 	private(set) lazy var view = loadView()
-	private let presenter: FeedImageCommentsPresenter
+	private let loadComments: () -> Void
 	
-	init(presenter: FeedImageCommentsPresenter) {
-		self.presenter = presenter
+	let cancelCommentsLoaderTask: () -> Void
+	
+	init(loadComments: @escaping () -> Void, cancelCommentsLoaderTask: @escaping () -> Void) {
+		self.loadComments = loadComments
+		self.cancelCommentsLoaderTask = cancelCommentsLoaderTask
 	}
 		
 	@objc func refresh() {
-		presenter.loadComments()
+		loadComments()
 	}
 	
 	private func loadView() -> UIRefreshControl {
@@ -33,10 +36,6 @@ final class FeedImageCommentsRefreshViewController: NSObject, FeedImageCommentsL
 		} else {
 			view.endRefreshing()
 		}
-	}
-	
-	func cancelCommentsLoaderTask() {
-		presenter.cancelCommentsLoaderTask()
 	}
 
 }

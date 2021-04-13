@@ -14,7 +14,7 @@ public final class FeedImageCommentsUIComposer {
 	
 	public static func feedCommentsComposedWith(commentsLoader: FeedImageCommentsLoader) -> FeedImageCommentsViewController {
 		let presenter = FeedImageCommentsPresenter(commentsLoader: commentsLoader)
-		let refreshController = FeedImageCommentsRefreshViewController(presenter: presenter)
+		let refreshController = FeedImageCommentsRefreshViewController(loadComments: presenter.loadComments, cancelCommentsLoaderTask: presenter.cancelCommentsLoaderTask)
 		let feedImageCommentsViewController = FeedImageCommentsViewController(refreshController: refreshController)
 		presenter.loadingView = WeakRefVirtualProxy(refreshController)
 		let adapter = FeedImageCommentsAdapter(controller: feedImageCommentsViewController)
