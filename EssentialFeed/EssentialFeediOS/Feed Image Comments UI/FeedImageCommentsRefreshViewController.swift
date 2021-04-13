@@ -8,20 +8,24 @@
 
 import UIKit
 
+protocol FeedImageCommentsRefreshViewControllerDelegate {
+	func didRequestFeedRefresh()
+}
+
 final class FeedImageCommentsRefreshViewController: NSObject, FeedImageCommentsLoadingView {
 	
 	private(set) lazy var view = loadView()
-	private let loadComments: () -> Void
+	private let delegate: FeedImageCommentsRefreshViewControllerDelegate
 	
 	let cancelCommentsLoaderTask: () -> Void
 	
-	init(loadComments: @escaping () -> Void, cancelCommentsLoaderTask: @escaping () -> Void) {
-		self.loadComments = loadComments
+	init(delegate: FeedImageCommentsRefreshViewControllerDelegate, cancelCommentsLoaderTask: @escaping () -> Void) {
+		self.delegate = delegate
 		self.cancelCommentsLoaderTask = cancelCommentsLoaderTask
 	}
 		
 	@objc func refresh() {
-		loadComments()
+		delegate.didRequestFeedRefresh()
 	}
 	
 	private func loadView() -> UIRefreshControl {
