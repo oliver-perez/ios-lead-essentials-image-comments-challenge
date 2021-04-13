@@ -13,14 +13,13 @@ public final class FeedImageCommentsUIComposer {
 	private init() {}
 	
 	public static func feedCommentsComposedWith(commentsLoader: FeedImageCommentsLoader) -> FeedImageCommentsViewController {
-		let presenter = FeedImageCommentsPresenter()
-		let presentationAdapter = FeedLoaderPresentationAdapter(presenter: presenter, commentsLoader: commentsLoader)
-		let refreshController = FeedImageCommentsRefreshViewController(delegate: presentationAdapter, cancelCommentsLoaderTask: presenter.cancelCommentsLoaderTask)
+		let presentationAdapter = FeedLoaderPresentationAdapter(commentsLoader: commentsLoader)
+		let refreshController = FeedImageCommentsRefreshViewController(delegate: presentationAdapter, cancelCommentsLoaderTask: presentationAdapter.cancelCommentsLoaderTask)
 		let feedImageCommentsViewController = FeedImageCommentsViewController(refreshController: refreshController)
-		presenter.loadingView = WeakRefVirtualProxy(refreshController)
-		let adapter = FeedImageCommentsAdapter(controller: feedImageCommentsViewController)
-		presenter.view = adapter
+		let presenter = FeedImageCommentsPresenter(view: FeedImageCommentsAdapter(controller: feedImageCommentsViewController), loadingView:  WeakRefVirtualProxy(refreshController))
 		
+		presentationAdapter.presenter = presenter
+				
 		return feedImageCommentsViewController
 	}
 
@@ -58,25 +57,28 @@ private final class FeedImageCommentsAdapter: FeedImageCommentsView {
 
 private final class FeedLoaderPresentationAdapter: FeedImageCommentsRefreshViewControllerDelegate {
 	
-	private let presenter: FeedImageCommentsPresenter
-	private let commentsLoader: FeedImageCommentsLoader
+	var presenter: FeedImageCommentsPresenter?
+	let commentsLoader: FeedImageCommentsLoader
 	
-	init(presenter: FeedImageCommentsPresenter, commentsLoader: FeedImageCommentsLoader) {
-		self.presenter = presenter
+	init(commentsLoader: FeedImageCommentsLoader) {
 		self.commentsLoader = commentsLoader
 	}
 	
 	func didRequestFeedRefresh() {
-		presenter.didStartLoadingComments()
+		presenter?.didStartLoadingComments()
 		
-		presenter.commentsLoaderTask = commentsLoader.load { [weak self] result in
+		presenter?.commentsLoaderTask = commentsLoader.load { [weak self] result in
 			switch result {
 			case let .success(comments):
-				self?.presenter.didFinishLoadingComments(with: comments)
+				self?.presenter?.didFinishLoadingComments(with: comments)
 			case let .failure(error):
-				self?.presenter.didFinishLoadingComments(with: error)
+				self?.presenter?.didFinishLoadingComments(with: error)
 			}
 		}
+	}
+	
+	func cancelCommentsLoaderTask() {
+		presenter?.cancelCommentsLoaderTask()
 	}
 	
 }

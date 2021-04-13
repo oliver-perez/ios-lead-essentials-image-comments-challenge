@@ -17,7 +17,7 @@ final class FeedImageCommentsRefreshViewController: NSObject, FeedImageCommentsL
 	private(set) lazy var view = loadView()
 	private let delegate: FeedImageCommentsRefreshViewControllerDelegate
 	
-	let cancelCommentsLoaderTask: () -> Void
+	var cancelCommentsLoaderTask: () -> Void
 	
 	init(delegate: FeedImageCommentsRefreshViewControllerDelegate, cancelCommentsLoaderTask: @escaping () -> Void) {
 		self.delegate = delegate
