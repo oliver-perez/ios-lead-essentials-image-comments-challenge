@@ -9,7 +9,7 @@
 import UIKit
 
 public final class FeedImageCommentsViewController: UITableViewController {
-	var refreshController: FeedImageCommentsRefreshViewController?
+	@IBOutlet private(set) var refreshController: FeedImageCommentsRefreshViewController?
 	var tableModel = [FeedImageCommentsCellController]() {
 		didSet {
 			tableView.reloadData()
@@ -18,9 +18,7 @@ public final class FeedImageCommentsViewController: UITableViewController {
 	
 	public override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		refreshControl = refreshController?.view
-		
+				
 		refreshController?.refresh()
 	}
 	
@@ -33,7 +31,7 @@ public final class FeedImageCommentsViewController: UITableViewController {
 	}
 	
 	deinit {
-		refreshController?.cancelCommentsLoaderTask()
+		refreshController?.cancelCommentsLoaderTask?()
 	}
 	
 }

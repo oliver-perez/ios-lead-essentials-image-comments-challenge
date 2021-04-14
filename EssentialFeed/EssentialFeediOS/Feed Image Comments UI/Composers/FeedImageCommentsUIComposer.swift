@@ -15,14 +15,15 @@ public final class FeedImageCommentsUIComposer {
 	
 	public static func feedCommentsComposedWith(commentsLoader: FeedImageCommentsLoader) -> FeedImageCommentsViewController {
 		let presentationAdapter = FeedLoaderPresentationAdapter(commentsLoader: commentsLoader)
-		let refreshController = FeedImageCommentsRefreshViewController(delegate: presentationAdapter, cancelCommentsLoaderTask: presentationAdapter.cancelCommentsLoaderTask)
 		
 		let bundle = Bundle(for: FeedImageCommentsViewController.self)
 		let storyboard = UIStoryboard(name: "FeedImageComments", bundle: bundle)
 		
 		let feedImageCommentsViewController = storyboard.instantiateInitialViewController() as! FeedImageCommentsViewController
 		
-		feedImageCommentsViewController.refreshController = refreshController
+		let refreshController = feedImageCommentsViewController.refreshController
+		refreshController?.delegate = presentationAdapter
+		refreshController?.cancelCommentsLoaderTask = presentationAdapter.cancelCommentsLoaderTask
 		
 		let presenter = FeedImageCommentsPresenter(view: FeedImageCommentsAdapter(controller: feedImageCommentsViewController), loadingView:  WeakRefVirtualProxy(refreshController))
 		
@@ -36,7 +37,7 @@ public final class FeedImageCommentsUIComposer {
 private final class WeakRefVirtualProxy<T: AnyObject> {
 	private weak var object: T?
 	
-	init(_ object: T) {
+	init(_ object: T?) {
 		self.object = object
 	}
 }

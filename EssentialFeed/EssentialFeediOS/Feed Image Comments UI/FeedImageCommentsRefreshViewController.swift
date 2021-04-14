@@ -14,31 +14,20 @@ protocol FeedImageCommentsRefreshViewControllerDelegate {
 
 final class FeedImageCommentsRefreshViewController: NSObject, FeedImageCommentsLoadingView {
 	
-	private(set) lazy var view = loadView()
-	private let delegate: FeedImageCommentsRefreshViewControllerDelegate
+	@IBOutlet private(set) var view: UIRefreshControl?
 	
-	var cancelCommentsLoaderTask: () -> Void
+	var delegate: FeedImageCommentsRefreshViewControllerDelegate?
+	var cancelCommentsLoaderTask: (() -> Void)?
 	
-	init(delegate: FeedImageCommentsRefreshViewControllerDelegate, cancelCommentsLoaderTask: @escaping () -> Void) {
-		self.delegate = delegate
-		self.cancelCommentsLoaderTask = cancelCommentsLoaderTask
-	}
-		
-	@objc func refresh() {
-		delegate.didRequestFeedRefresh()
-	}
-	
-	private func loadView() -> UIRefreshControl {
-		let view = UIRefreshControl()
-		view.addTarget(self, action: #selector(refresh), for: .valueChanged)
-		return view
+	@IBAction func refresh() {
+		delegate?.didRequestFeedRefresh()
 	}
 	
 	func display(_ viewModel: FeedImageCommentLoadingViewModel) {
 		if viewModel.isLoading {
-			view.beginRefreshing()
+			view?.beginRefreshing()
 		} else {
-			view.endRefreshing()
+			view?.endRefreshing()
 		}
 	}
 
