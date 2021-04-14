@@ -97,6 +97,7 @@
 		AC96FAE02615913600423B2B /* FeedImageCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FADF2615913600423B2B /* FeedImageCommentsViewController.swift */; };
 		AC96FAF72616E75100423B2B /* FeedImageCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FAED2616E4F400423B2B /* FeedImageCommentCell.swift */; };
 		ACAA61522622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA61512622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift */; };
+		ACAA6174262699AB00CD8CF7 /* FeedImageComments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACAA6173262699AB00CD8CF7 /* FeedImageComments.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,6 +215,7 @@
 		AC96FADF2615913600423B2B /* FeedImageCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsViewController.swift; sourceTree = "<group>"; };
 		AC96FAED2616E4F400423B2B /* FeedImageCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentCell.swift; sourceTree = "<group>"; };
 		ACAA61512622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsPresenter.swift; sourceTree = "<group>"; };
+		ACAA6173262699AB00CD8CF7 /* FeedImageComments.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedImageComments.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -580,6 +582,7 @@
 				AC96FADF2615913600423B2B /* FeedImageCommentsViewController.swift */,
 				AC014F42261AAD0F00CE3393 /* FeedImageCommentsRefreshViewController.swift */,
 				AC014F48261C12C200CE3393 /* FeedImageCommentsCellController.swift */,
+				ACAA6173262699AB00CD8CF7 /* FeedImageComments.storyboard */,
 			);
 			path = "Feed Image Comments UI";
 			sourceTree = "<group>";
@@ -749,6 +752,7 @@
 			files = (
 				0822D0F123056FEB004B3345 /* Feed.storyboard in Resources */,
 				0822D0F3230570F3004B3345 /* Feed.xcassets in Resources */,
+				ACAA6174262699AB00CD8CF7 /* FeedImageComments.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
