@@ -9,16 +9,11 @@
 import UIKit
 
 public final class FeedImageCommentsViewController: UITableViewController {
-	private var refreshController: FeedImageCommentsRefreshViewController?
+	var refreshController: FeedImageCommentsRefreshViewController?
 	var tableModel = [FeedImageCommentsCellController]() {
 		didSet {
 			tableView.reloadData()
 		}
-	}
-	
-	convenience init(refreshController: FeedImageCommentsRefreshViewController) {
-		self.init()
-		self.refreshController = refreshController
 	}
 	
 	public override func viewDidLoad() {

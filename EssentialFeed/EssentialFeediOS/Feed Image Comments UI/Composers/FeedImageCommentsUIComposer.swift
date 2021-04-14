@@ -6,6 +6,7 @@
 //  Copyright © 2021 Essential Developer. All rights reserved.
 //
 
+import UIKit
 import EssentialFeed
 
 public final class FeedImageCommentsUIComposer {
@@ -15,7 +16,14 @@ public final class FeedImageCommentsUIComposer {
 	public static func feedCommentsComposedWith(commentsLoader: FeedImageCommentsLoader) -> FeedImageCommentsViewController {
 		let presentationAdapter = FeedLoaderPresentationAdapter(commentsLoader: commentsLoader)
 		let refreshController = FeedImageCommentsRefreshViewController(delegate: presentationAdapter, cancelCommentsLoaderTask: presentationAdapter.cancelCommentsLoaderTask)
-		let feedImageCommentsViewController = FeedImageCommentsViewController(refreshController: refreshController)
+		
+		let bundle = Bundle(for: FeedImageCommentsViewController.self)
+		let storyboard = UIStoryboard(name: "FeedImageComments", bundle: bundle)
+		
+		let feedImageCommentsViewController = storyboard.instantiateInitialViewController() as! FeedImageCommentsViewController
+		
+		feedImageCommentsViewController.refreshController = refreshController
+		
 		let presenter = FeedImageCommentsPresenter(view: FeedImageCommentsAdapter(controller: feedImageCommentsViewController), loadingView:  WeakRefVirtualProxy(refreshController))
 		
 		presentationAdapter.presenter = presenter
