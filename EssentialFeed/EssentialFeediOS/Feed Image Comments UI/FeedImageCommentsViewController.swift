@@ -8,8 +8,15 @@
 
 import UIKit
 
-public final class FeedImageCommentsViewController: UITableViewController {
-	@IBOutlet private(set) var refreshController: FeedImageCommentsRefreshViewController?
+protocol FeedImageCommentsControllerDelegate {
+	func didRequestFeedRefresh()
+}
+
+public final class FeedImageCommentsViewController: UITableViewController, FeedImageCommentsLoadingView {
+	
+	var delegate: FeedImageCommentsControllerDelegate?
+	var cancelCommentsLoaderTask: (() -> Void)?
+	
 	var tableModel = [FeedImageCommentsCellController]() {
 		didSet {
 			tableView.reloadData()
@@ -19,7 +26,19 @@ public final class FeedImageCommentsViewController: UITableViewController {
 	public override func viewDidLoad() {
 		super.viewDidLoad()
 				
-		refreshController?.refresh()
+		refresh()
+	}
+	
+	@IBAction private func refresh() {
+		delegate?.didRequestFeedRefresh()
+	}
+	
+	func display(_ viewModel: FeedImageCommentLoadingViewModel) {
+		if viewModel.isLoading {
+			refreshControl?.beginRefreshing()
+		} else {
+			refreshControl?.endRefreshing()
+		}
 	}
 	
 	public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,7 +50,7 @@ public final class FeedImageCommentsViewController: UITableViewController {
 	}
 	
 	deinit {
-		refreshController?.cancelCommentsLoaderTask?()
+		cancelCommentsLoaderTask?()
 	}
 	
 }

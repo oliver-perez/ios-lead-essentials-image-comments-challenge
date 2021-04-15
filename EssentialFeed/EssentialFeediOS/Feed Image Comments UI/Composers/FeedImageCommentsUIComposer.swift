@@ -21,11 +21,10 @@ public final class FeedImageCommentsUIComposer {
 		
 		let feedImageCommentsViewController = storyboard.instantiateInitialViewController() as! FeedImageCommentsViewController
 		
-		let refreshController = feedImageCommentsViewController.refreshController
-		refreshController?.delegate = presentationAdapter
-		refreshController?.cancelCommentsLoaderTask = presentationAdapter.cancelCommentsLoaderTask
+		feedImageCommentsViewController.delegate = presentationAdapter
+		feedImageCommentsViewController.cancelCommentsLoaderTask = presentationAdapter.cancelCommentsLoaderTask
 		
-		let presenter = FeedImageCommentsPresenter(view: FeedImageCommentsAdapter(controller: feedImageCommentsViewController), loadingView:  WeakRefVirtualProxy(refreshController))
+		let presenter = FeedImageCommentsPresenter(view: FeedImageCommentsAdapter(controller: feedImageCommentsViewController), loadingView:  WeakRefVirtualProxy(feedImageCommentsViewController))
 		
 		presentationAdapter.presenter = presenter
 				
@@ -64,7 +63,7 @@ private final class FeedImageCommentsAdapter: FeedImageCommentsView {
 
 }
 
-private final class FeedLoaderPresentationAdapter: FeedImageCommentsRefreshViewControllerDelegate {
+private final class FeedLoaderPresentationAdapter: FeedImageCommentsControllerDelegate {
 	
 	var presenter: FeedImageCommentsPresenter?
 	let commentsLoader: FeedImageCommentsLoader
