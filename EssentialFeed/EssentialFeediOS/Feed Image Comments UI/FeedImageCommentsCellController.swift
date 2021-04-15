@@ -20,12 +20,11 @@ final class FeedImageCommentsCellController {
 	
 	func view(in tableView: UITableView) -> UITableViewCell {
 		
-		let cell = tableView.dequeueReusableCell(withIdentifier: "FeedImageCommentCell") as! FeedImageCommentCell
-		cell.usernameLabel.text = model.author.username
-		cell.dateLabel.text = model.creationDate
-		cell.messageLabel.text = model.message
+		cell = tableView.dequeueReusableCell()
+		cell?.usernameLabel.text = model.author.username
+		cell?.dateLabel.text = model.creationDate
+		cell?.messageLabel.text = model.message
 		
-		self.cell = cell
-		return cell
+		return cell!
 	}
 }
