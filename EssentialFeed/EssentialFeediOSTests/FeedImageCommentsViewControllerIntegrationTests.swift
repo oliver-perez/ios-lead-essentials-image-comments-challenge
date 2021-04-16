@@ -12,6 +12,14 @@ import EssentialFeed
 
 class FeedImageCommentsViewControllerIntegrationTests: XCTestCase {
 	
+	func test_feedImagesView_hasTitle() {
+		let (sut, _) = makeSUT()
+		
+		sut.loadViewIfNeeded()
+		
+		XCTAssertEqual(sut.title, "Comments")
+	}
+	
 	func test_loadFeedImageCommentsActions_requestCommentsFromLoader() {
 		let (sut, loader) = makeSUT()
 		

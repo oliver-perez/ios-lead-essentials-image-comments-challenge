@@ -32,6 +32,8 @@ final class FeedImageCommentsPresenter {
 	private let loadingView: FeedImageCommentsLoadingView
 	var commentsLoaderTask: FeedImageCommentLoaderTask?
 	
+	static var title: String { "Comments" }
+	
 	init(view: FeedImageCommentsView, loadingView: FeedImageCommentsLoadingView) {
 		self.view = view
 		self.loadingView = loadingView
