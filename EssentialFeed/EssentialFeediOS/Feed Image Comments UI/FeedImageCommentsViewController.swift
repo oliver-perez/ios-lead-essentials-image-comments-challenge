@@ -26,7 +26,6 @@ public final class FeedImageCommentsViewController: UITableViewController, FeedI
 	public override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		title = FeedImageCommentsPresenter.title
 		refresh()
 	}
 	
