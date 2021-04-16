@@ -15,15 +15,11 @@ public final class FeedImageCommentsUIComposer {
 	
 	public static func feedCommentsComposedWith(commentsLoader: FeedImageCommentsLoader) -> FeedImageCommentsViewController {
 		let presentationAdapter = FeedLoaderPresentationAdapter(commentsLoader: commentsLoader)
-		
-		let bundle = Bundle(for: FeedImageCommentsViewController.self)
-		let storyboard = UIStoryboard(name: "FeedImageComments", bundle: bundle)
-		
-		let feedImageCommentsViewController = storyboard.instantiateInitialViewController() as! FeedImageCommentsViewController
-		
-		feedImageCommentsViewController.delegate = presentationAdapter
-		feedImageCommentsViewController.title = FeedImageCommentsPresenter.title
-		feedImageCommentsViewController.cancelCommentsLoaderTask = presentationAdapter.cancelCommentsLoaderTask
+				
+		let feedImageCommentsViewController = FeedImageCommentsViewController.makeWith(
+			delegate: presentationAdapter,
+			title: FeedImageCommentsPresenter.title,
+			cancelCommentsLoaderTask: presentationAdapter.cancelCommentsLoaderTask)
 		
 		let presenter = FeedImageCommentsPresenter(view: FeedImageCommentsAdapter(controller: feedImageCommentsViewController), loadingView:  WeakRefVirtualProxy(feedImageCommentsViewController))
 		
@@ -32,6 +28,18 @@ public final class FeedImageCommentsUIComposer {
 		return feedImageCommentsViewController
 	}
 
+}
+
+private extension FeedImageCommentsViewController {
+	static func makeWith(delegate: FeedImageCommentsControllerDelegate, title: String, cancelCommentsLoaderTask: (() -> Void)?) -> Self {
+		let bundle = Bundle(for: Self.self)
+		let storyboard = UIStoryboard(name: "FeedImageComments", bundle: bundle)
+		let feedController = storyboard.instantiateInitialViewController() as! Self
+		feedController.delegate = delegate
+		feedController.title = title
+		feedController.cancelCommentsLoaderTask = cancelCommentsLoaderTask
+		return feedController
+	}
 }
 
 private final class WeakRefVirtualProxy<T: AnyObject> {
