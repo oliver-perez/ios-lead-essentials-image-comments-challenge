@@ -218,6 +218,8 @@
 		ACAA6173262699AB00CD8CF7 /* FeedImageComments.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedImageComments.storyboard; sourceTree = "<group>"; };
 		ACAA6183262A9DC700CD8CF7 /* FeedImageCommentsViewControllerIntegrationTests+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedImageCommentsViewControllerIntegrationTests+Localization.swift"; sourceTree = "<group>"; };
 		ACAA618E262A9EAF00CD8CF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/FeedImageComments.strings; sourceTree = "<group>"; };
+		ACAA6194262A9F0900CD8CF7 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/FeedImageComments.strings; sourceTree = "<group>"; };
+		ACAA6195262A9F0D00CD8CF7 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/FeedImageComments.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -912,6 +914,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				ACAA618E262A9EAF00CD8CF7 /* en */,
+				ACAA6194262A9F0900CD8CF7 /* el */,
+				ACAA6195262A9F0D00CD8CF7 /* pt-BR */,
 			);
 			name = FeedImageComments.strings;
 			sourceTree = "<group>";
