@@ -350,6 +350,7 @@
 		086AEFBA23A7E5B100EE8933 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				ACAA6183262A9DC700CD8CF7 /* FeedImageCommentsViewControllerIntegrationTests+Localization.swift */,
 				AC96FAD3261439C500423B2B /* UIRefreshControl+TestHelpers.swift */,
 				AC96FAC9261439BF00423B2B /* UIControl+TestHelpers.swift */,
 				086AEFBB23A7E5C300EE8933 /* UIImage+TestHelpers.swift */,
@@ -517,7 +518,6 @@
 				086AEFBA23A7E5B100EE8933 /* Helpers */,
 				086AEFB823A7DFA400EE8933 /* FeedSnapshotTests.swift */,
 				AC96FA9726142D0400423B2B /* FeedImageCommentsViewControllerIntegrationTests.swift */,
-				ACAA6183262A9DC700CD8CF7 /* FeedImageCommentsViewControllerIntegrationTests+Localization.swift */,
 			);
 			path = EssentialFeediOSTests;
 			sourceTree = "<group>";
