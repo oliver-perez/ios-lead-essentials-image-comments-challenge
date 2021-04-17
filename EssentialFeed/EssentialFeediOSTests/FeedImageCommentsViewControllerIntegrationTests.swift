@@ -17,7 +17,12 @@ class FeedImageCommentsViewControllerIntegrationTests: XCTestCase {
 		
 		sut.loadViewIfNeeded()
 		
-		XCTAssertEqual(sut.title, "Comments")
+		let bundle = Bundle(for: FeedImageCommentsViewController.self)
+		let localizedKey = "FEED_IMAGE_COMMENTS_TITLE"
+		let localizedTitle = bundle.localizedString(forKey: localizedKey, value: nil, table: "FeedImageComments")
+		
+		XCTAssertNotEqual(localizedTitle, localizedKey, "Missing localized string for key: \(localizedKey)")
+		XCTAssertEqual(sut.title, localizedTitle)
 	}
 	
 	func test_loadFeedImageCommentsActions_requestCommentsFromLoader() {

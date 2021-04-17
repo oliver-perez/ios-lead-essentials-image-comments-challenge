@@ -32,7 +32,13 @@ final class FeedImageCommentsPresenter {
 	private let loadingView: FeedImageCommentsLoadingView
 	var commentsLoaderTask: FeedImageCommentLoaderTask?
 	
-	static var title: String { "Comments" }
+	static var title: String {
+		NSLocalizedString(
+			"FEED_IMAGE_COMMENTS_TITLE",
+			tableName: "FeedImageComments",
+			bundle: Bundle(for: Self.self),
+			comment: "Title for the Feed Image Comments view")
+	}
 	
 	init(view: FeedImageCommentsView, loadingView: FeedImageCommentsLoadingView) {
 		self.view = view

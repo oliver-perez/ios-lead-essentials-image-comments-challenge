@@ -97,6 +97,7 @@
 		AC96FAF72616E75100423B2B /* FeedImageCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FAED2616E4F400423B2B /* FeedImageCommentCell.swift */; };
 		ACAA61522622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA61512622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift */; };
 		ACAA6174262699AB00CD8CF7 /* FeedImageComments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACAA6173262699AB00CD8CF7 /* FeedImageComments.storyboard */; };
+		ACAA617E262A9BEA00CD8CF7 /* FeedImageComments.strings in Resources */ = {isa = PBXBuildFile; fileRef = ACAA617D262A9BEA00CD8CF7 /* FeedImageComments.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,6 +215,7 @@
 		AC96FAED2616E4F400423B2B /* FeedImageCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentCell.swift; sourceTree = "<group>"; };
 		ACAA61512622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsPresenter.swift; sourceTree = "<group>"; };
 		ACAA6173262699AB00CD8CF7 /* FeedImageComments.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedImageComments.storyboard; sourceTree = "<group>"; };
+		ACAA617D262A9BEA00CD8CF7 /* FeedImageComments.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = FeedImageComments.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -560,6 +562,7 @@
 			isa = PBXGroup;
 			children = (
 				ACAA61512622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift */,
+				ACAA617D262A9BEA00CD8CF7 /* FeedImageComments.strings */,
 			);
 			path = "Feed Image Comments Presentation";
 			sourceTree = "<group>";
@@ -749,6 +752,7 @@
 			files = (
 				0822D0F123056FEB004B3345 /* Feed.storyboard in Resources */,
 				0822D0F3230570F3004B3345 /* Feed.xcassets in Resources */,
+				ACAA617E262A9BEA00CD8CF7 /* FeedImageComments.strings in Resources */,
 				ACAA6174262699AB00CD8CF7 /* FeedImageComments.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
