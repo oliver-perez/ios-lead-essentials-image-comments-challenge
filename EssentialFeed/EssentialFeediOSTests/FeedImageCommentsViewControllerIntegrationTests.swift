@@ -11,18 +11,14 @@ import EssentialFeediOS
 import EssentialFeed
 
 class FeedImageCommentsViewControllerIntegrationTests: XCTestCase {
+	typealias SUT = FeedImageCommentsViewController
 	
 	func test_feedImagesView_hasTitle() {
 		let (sut, _) = makeSUT()
 		
 		sut.loadViewIfNeeded()
 		
-		let bundle = Bundle(for: FeedImageCommentsViewController.self)
-		let localizedKey = "FEED_IMAGE_COMMENTS_TITLE"
-		let localizedTitle = bundle.localizedString(forKey: localizedKey, value: nil, table: "FeedImageComments")
-		
-		XCTAssertNotEqual(localizedTitle, localizedKey, "Missing localized string for key: \(localizedKey)")
-		XCTAssertEqual(sut.title, localizedTitle)
+		XCTAssertEqual(sut.title, localized("FEED_IMAGE_COMMENTS_TITLE"))
 	}
 	
 	func test_loadFeedImageCommentsActions_requestCommentsFromLoader() {
@@ -89,7 +85,7 @@ class FeedImageCommentsViewControllerIntegrationTests: XCTestCase {
 	}
 	
 	func test_cancelAnyRunningCommentsAPIRequests_whenUserNavigatesBack() {
-		var (sut, loader): (FeedImageCommentsViewController?, LoaderSpy?)
+		var (sut, loader): (SUT?, LoaderSpy?)
 
 		autoreleasepool {
 			(sut, loader) = makeSUT()
@@ -104,7 +100,7 @@ class FeedImageCommentsViewControllerIntegrationTests: XCTestCase {
 	
 	// MARK: - Helpers
 	
-	private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedImageCommentsViewController, loader: LoaderSpy) {
+	private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: SUT, loader: LoaderSpy) {
 		let loader = LoaderSpy()
 		let sut = FeedImageCommentsUIComposer.feedCommentsComposedWith(commentsLoader: loader)
 				
@@ -114,7 +110,7 @@ class FeedImageCommentsViewControllerIntegrationTests: XCTestCase {
 		return (sut, loader)
 	}
 	
-	private func assertThat(_ sut: FeedImageCommentsViewController, isRendering comments: [FeedImageComment], file: StaticString = #filePath, line: UInt = #line) {
+	private func assertThat(_ sut: SUT, isRendering comments: [FeedImageComment], file: StaticString = #filePath, line: UInt = #line) {
 		guard sut.numberOfRenderedComments() == comments.count else {
 			return XCTFail("Expected \(comments.count) comments, got \(sut.numberOfRenderedComments()) instead", file: file, line: line)
 		}
@@ -124,7 +120,7 @@ class FeedImageCommentsViewControllerIntegrationTests: XCTestCase {
 		}
 	}
 	
-	private func assertThat(_ sut: FeedImageCommentsViewController, hasViewConfiguredFor comment: FeedImageComment, at index: Int, file: StaticString = #filePath, line: UInt = #line) {
+	private func assertThat(_ sut: SUT, hasViewConfiguredFor comment: FeedImageComment, at index: Int, file: StaticString = #filePath, line: UInt = #line) {
 		let view = sut.feedImageComment(at: index) as? FeedImageCommentCell
 		XCTAssertNotNil(view, file: file, line: line)
 		XCTAssertEqual(view?.username, comment.author.username, file: file, line: line)

@@ -98,6 +98,7 @@
 		ACAA61522622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA61512622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift */; };
 		ACAA6174262699AB00CD8CF7 /* FeedImageComments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACAA6173262699AB00CD8CF7 /* FeedImageComments.storyboard */; };
 		ACAA617E262A9BEA00CD8CF7 /* FeedImageComments.strings in Resources */ = {isa = PBXBuildFile; fileRef = ACAA617D262A9BEA00CD8CF7 /* FeedImageComments.strings */; };
+		ACAA6184262A9DC700CD8CF7 /* FeedImageCommentsViewControllerIntegrationTests+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA6183262A9DC700CD8CF7 /* FeedImageCommentsViewControllerIntegrationTests+Localization.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,6 +217,7 @@
 		ACAA61512622ADB100CD8CF7 /* FeedImageCommentsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsPresenter.swift; sourceTree = "<group>"; };
 		ACAA6173262699AB00CD8CF7 /* FeedImageComments.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedImageComments.storyboard; sourceTree = "<group>"; };
 		ACAA617D262A9BEA00CD8CF7 /* FeedImageComments.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = FeedImageComments.strings; sourceTree = "<group>"; };
+		ACAA6183262A9DC700CD8CF7 /* FeedImageCommentsViewControllerIntegrationTests+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedImageCommentsViewControllerIntegrationTests+Localization.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -515,6 +517,7 @@
 				086AEFBA23A7E5B100EE8933 /* Helpers */,
 				086AEFB823A7DFA400EE8933 /* FeedSnapshotTests.swift */,
 				AC96FA9726142D0400423B2B /* FeedImageCommentsViewControllerIntegrationTests.swift */,
+				ACAA6183262A9DC700CD8CF7 /* FeedImageCommentsViewControllerIntegrationTests+Localization.swift */,
 			);
 			path = EssentialFeediOSTests;
 			sourceTree = "<group>";
@@ -872,6 +875,7 @@
 				086AEFB923A7DFA400EE8933 /* FeedSnapshotTests.swift in Sources */,
 				AC96FA9826142D0400423B2B /* FeedImageCommentsViewControllerIntegrationTests.swift in Sources */,
 				0800314923B6909A00720217 /* XCTestCase+Snapshot.swift in Sources */,
+				ACAA6184262A9DC700CD8CF7 /* FeedImageCommentsViewControllerIntegrationTests+Localization.swift in Sources */,
 				AC96FAD4261439C500423B2B /* UIRefreshControl+TestHelpers.swift in Sources */,
 				0800314723B68FAB00720217 /* UIViewController+Snapshot.swift in Sources */,
 				086AEFBC23A7E5C300EE8933 /* UIImage+TestHelpers.swift in Sources */,
