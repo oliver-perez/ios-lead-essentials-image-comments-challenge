@@ -98,6 +98,19 @@ class FeedImageCommentsViewControllerIntegrationTests: XCTestCase {
 		XCTAssertEqual(loader?.isLoadingRequest, false)
 	}
 	
+	func test_loadFeedCompletion_dispatchesFromBackgroundToMainThread() {
+		let (sut, loader) = makeSUT()
+		sut.loadViewIfNeeded()
+		
+		let exp = expectation(description: "Wait for background queue")
+		DispatchQueue.global().async {
+			loader.completeFeedImageCommentsLoading(at: 0)
+			exp.fulfill()
+		}
+		wait(for: [exp], timeout: 1.0)
+		
+	}
+	
 	// MARK: - Helpers
 	
 	private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: SUT, loader: LoaderSpy) {
