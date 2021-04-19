@@ -58,6 +58,12 @@ public final class FeedPresenter {
 	}
 	
 	public func didFinishLoadingFeed(with error: Error) {
+		guard Thread.isMainThread else {
+			return DispatchQueue.main.async { [weak self] in
+				self?.didFinishLoadingFeed(with: error)
+			}
+		}
+		
 		errorView.display(.error(message: feedLoadError))
 		loadingView.display(FeedLoadingViewModel(isLoading: false))
 	}
