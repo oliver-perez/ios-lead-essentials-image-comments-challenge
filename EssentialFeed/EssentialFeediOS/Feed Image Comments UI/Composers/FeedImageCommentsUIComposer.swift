@@ -30,25 +30,32 @@ public final class FeedImageCommentsUIComposer {
 
 }
 
-private final class MainQueueDispatchDecorator: FeedImageCommentsLoader {
-	private let decoratee: FeedImageCommentsLoader
+private final class MainQueueDispatchDecorator<T> {
+	private let decoratee: T
 	
-	init(decoratee: FeedImageCommentsLoader) {
+	init(decoratee: T) {
 		self.decoratee = decoratee
 	}
 	
+	func dispatch(completion: @escaping () -> Void) {
+		guard Thread.isMainThread else {
+			return DispatchQueue.main.async {
+				completion()
+			}
+		}
+		completion()
+	}
+	
+}
+
+extension MainQueueDispatchDecorator: FeedImageCommentsLoader where T == FeedImageCommentsLoader {
 	func load(completion: @escaping (FeedImageCommentsLoader.Result) -> Void) -> FeedImageCommentLoaderTask {
-		decoratee.load { result in
-			if Thread.isMainThread {
+		decoratee.load { [weak self] result in
+			self?.dispatch {
 				completion(result)
-			} else {
-				DispatchQueue.main.async {
-					completion(result)
-				}
 			}
 		}
 	}
-	
 }
 
 private extension FeedImageCommentsViewController {
