@@ -14,16 +14,26 @@ final class FeedImageCommentsPresenter {
 }
 
 class FeedImageCommentsPresenterTests: XCTestCase {
+	
+	typealias SUT = FeedImageCommentsPresenter
 
 	func test_init_doesNotSendAnyMessagesToView() {
-		let view = ViewSpy()
-		
-		_ = FeedImageCommentsPresenter(view: view)
-		
+		let (_, view) = makeSUT()
+				
 		XCTAssert(view.messages.isEmpty, "Expected no view messages")
 	}
 	
 	// MARK: - Helpers
+	
+	private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: SUT, view: ViewSpy) {
+		let view = ViewSpy()
+		let sut = SUT(view: view)
+		
+		trackForMemoryLeaks(sut)
+		trackForMemoryLeaks(view)
+		
+		return (sut, view)
+	}
 	
 	private class ViewSpy {
 		let messages = [Any]()
