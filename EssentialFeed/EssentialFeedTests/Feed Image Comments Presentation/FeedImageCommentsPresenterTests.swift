@@ -88,19 +88,24 @@ class FeedImageCommentsPresenterTests: XCTestCase {
 	}
 	
 	private class ViewSpy: FeedImageCommentsLoadingView, FeedImageCommentsView {
-		enum Message: Equatable {
+		enum Message: Hashable {
+			
+			func hash(into hasher: inout Hasher) {
+				hasher.combine(String(describing: self))
+			}
+			
 			case display(isLoading: Bool)
 			case display(comments: [FeedImageComment])
 		}
 		
-		private(set) var messages = [Message]()
+		private(set) var messages = Set<Message>()
 		
 		func display(_ viewModel: FeedImageCommentLoadingViewModel) {
-			messages.append(.display(isLoading: viewModel.isLoading))
+			messages.insert(.display(isLoading: viewModel.isLoading))
 		}
 		
 		func display(_ viewModel: FeedImageCommentsViewModel) {
-			messages.append(.display(comments: viewModel.comments))
+			messages.insert(.display(comments: viewModel.comments))
 		}
 		
 	}
