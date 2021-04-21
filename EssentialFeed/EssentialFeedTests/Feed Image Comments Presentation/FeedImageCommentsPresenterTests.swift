@@ -41,6 +41,7 @@ final class FeedImageCommentsPresenter {
 	
 	func didFinishLoadingComments(with comments: [FeedImageComment]) {
 		view.display(.init(comments: comments))
+		loadingView.display(.init(isLoading: false))
 	}
 	
 }
@@ -69,7 +70,9 @@ class FeedImageCommentsPresenterTests: XCTestCase {
 		
 		sut.didFinishLoadingComments(with: comments)
 		
-		XCTAssertEqual(view.messages, [.display(comments: comments)])
+		XCTAssertEqual(view.messages,
+									 [.display(comments: comments),
+										.display(isLoading: false)])
 	}
 	
 	// MARK: - Helpers
