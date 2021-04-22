@@ -86,6 +86,7 @@
 		AC014F49261C12C200CE3393 /* FeedImageCommentsCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC014F48261C12C200CE3393 /* FeedImageCommentsCellController.swift */; };
 		AC014F50261C188900CE3393 /* FeedImageCommentsUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC014F4F261C188900CE3393 /* FeedImageCommentsUIComposer.swift */; };
 		AC164149262E699000DED9CB /* FeedImageCommentsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC164148262E699000DED9CB /* FeedImageCommentsPresenterTests.swift */; };
+		AC164184263139D600DED9CB /* FeedImageComments.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC16415A2631390D00DED9CB /* FeedImageComments.strings */; };
 		AC22EEF126031192001D4819 /* FeedImageComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22EEF026031192001D4819 /* FeedImageComment.swift */; };
 		AC22EEF72603130B001D4819 /* FeedImageCommentsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22EEF62603130B001D4819 /* FeedImageCommentsLoader.swift */; };
 		AC22EF0B26046404001D4819 /* LoadFeedImageCommentsFromRemoteUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22EF0A26046404001D4819 /* LoadFeedImageCommentsFromRemoteUseCaseTests.swift */; };
@@ -207,6 +208,9 @@
 		AC014F48261C12C200CE3393 /* FeedImageCommentsCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsCellController.swift; sourceTree = "<group>"; };
 		AC014F4F261C188900CE3393 /* FeedImageCommentsUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsUIComposer.swift; sourceTree = "<group>"; };
 		AC164148262E699000DED9CB /* FeedImageCommentsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsPresenterTests.swift; sourceTree = "<group>"; };
+		AC1641592631390D00DED9CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/FeedImageComments.strings; sourceTree = "<group>"; };
+		AC16415F2631391000DED9CB /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/FeedImageComments.strings; sourceTree = "<group>"; };
+		AC16416E2631391300DED9CB /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/FeedImageComments.strings"; sourceTree = "<group>"; };
 		AC22EEF026031192001D4819 /* FeedImageComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageComment.swift; sourceTree = "<group>"; };
 		AC22EEF62603130B001D4819 /* FeedImageCommentsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsLoader.swift; sourceTree = "<group>"; };
 		AC22EF0A26046404001D4819 /* LoadFeedImageCommentsFromRemoteUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFeedImageCommentsFromRemoteUseCaseTests.swift; sourceTree = "<group>"; };
@@ -582,6 +586,7 @@
 			isa = PBXGroup;
 			children = (
 				AC164148262E699000DED9CB /* FeedImageCommentsPresenterTests.swift */,
+				AC16415A2631390D00DED9CB /* FeedImageComments.strings */,
 			);
 			path = "Feed Image Comments Presentation";
 			sourceTree = "<group>";
@@ -762,6 +767,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC164184263139D600DED9CB /* FeedImageComments.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -924,6 +930,16 @@
 				087148B3232BE90D00D6BE1A /* el */,
 			);
 			name = Feed.strings;
+			sourceTree = "<group>";
+		};
+		AC16415A2631390D00DED9CB /* FeedImageComments.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC1641592631390D00DED9CB /* en */,
+				AC16415F2631391000DED9CB /* el */,
+				AC16416E2631391300DED9CB /* pt-BR */,
+			);
+			name = FeedImageComments.strings;
 			sourceTree = "<group>";
 		};
 		ACAA618F262A9EAF00CD8CF7 /* FeedImageComments.strings */ = {

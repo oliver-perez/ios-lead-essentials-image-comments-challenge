@@ -34,6 +34,14 @@ final class FeedImageCommentsPresenter {
 	private let view: FeedImageCommentsView
 	private let loadingView: FeedImageCommentsLoadingView
 	var commentsLoaderTask: FeedImageCommentLoaderTask?
+	
+	static var title: String {
+		NSLocalizedString(
+			"FEED_IMAGE_COMMENTS_TITLE",
+			tableName: "FeedImageComments",
+			bundle: Bundle(for: Self.self),
+			comment: "Title for the Feed Image Comments view")
+	}
 
 	init(view: FeedImageCommentsView,
 			 loadingView: FeedImageCommentsLoadingView,
@@ -65,6 +73,10 @@ final class FeedImageCommentsPresenter {
 class FeedImageCommentsPresenterTests: XCTestCase {
 	
 	typealias SUT = FeedImageCommentsPresenter
+	
+	func test_title_isLocalized() {
+		XCTAssertEqual(FeedImageCommentsPresenter.title, localized("FEED_IMAGE_COMMENTS_TITLE"))
+	}
 
 	func test_init_doesNotSendAnyMessagesToView() {
 		let (_, view, _) = makeSUT()
@@ -120,6 +132,16 @@ class FeedImageCommentsPresenterTests: XCTestCase {
 		trackForMemoryLeaks(view)
 		
 		return (sut, view, commentsLoaderTask)
+	}
+	
+	func localized(_ key: String, file: StaticString = #filePath, line: UInt = #line) -> String {
+		let table = "FeedImageComments"
+		let bundle = Bundle(for: SUT.self)
+		let value = bundle.localizedString(forKey: key, value: nil, table: table)
+		if value == key {
+			XCTFail("Missing localized string for key: \(key) in table: \(table)", file: file, line: line)
+		}
+		return value
 	}
 	
 	private class FeedImageCommentLoaderTaskSpy: FeedImageCommentLoaderTask {
