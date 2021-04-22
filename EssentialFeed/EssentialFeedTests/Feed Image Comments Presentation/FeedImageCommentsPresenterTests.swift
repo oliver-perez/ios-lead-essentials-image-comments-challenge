@@ -44,6 +44,10 @@ final class FeedImageCommentsPresenter {
 		loadingView.display(.init(isLoading: false))
 	}
 	
+	func didFinishLoadingComments(with error: Error) {
+		loadingView.display(.init(isLoading: false))
+	}
+	
 }
 
 class FeedImageCommentsPresenterTests: XCTestCase {
@@ -64,7 +68,7 @@ class FeedImageCommentsPresenterTests: XCTestCase {
 		XCTAssertEqual(view.messages, [.display(isLoading: true)])
 	}
 	
-	func test_didFinishLoadingComments_displaysComments() {
+	func test_didFinishLoadingComments_withComments_displaysCommentsAndStopsLoading() {
 		let (sut, view) = makeSUT()
 		let comments = [FeedImageComment]()
 		
@@ -73,6 +77,15 @@ class FeedImageCommentsPresenterTests: XCTestCase {
 		XCTAssertEqual(view.messages,
 									 [.display(comments: comments),
 										.display(isLoading: false)])
+	}
+	
+	func test_didFinishLoadingComments_withError_stopsLoading() {
+		let (sut, view) = makeSUT()
+		
+		sut.didFinishLoadingComments(with: anyNSError())
+		
+		XCTAssertEqual(view.messages,
+									 [.display(isLoading: false)])
 	}
 	
 	// MARK: - Helpers
