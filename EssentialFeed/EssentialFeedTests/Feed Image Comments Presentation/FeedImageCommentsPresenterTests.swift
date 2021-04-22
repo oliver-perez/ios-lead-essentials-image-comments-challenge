@@ -9,6 +9,10 @@
 import XCTest
 import EssentialFeed
 
+public protocol FeedImageCommentLoaderTask {
+	func cancel()
+}
+
 struct FeedImageCommentLoadingViewModel {
 	let isLoading: Bool
 }
@@ -29,10 +33,14 @@ final class FeedImageCommentsPresenter {
 	
 	private let view: FeedImageCommentsView
 	private let loadingView: FeedImageCommentsLoadingView
+	var commentsLoaderTask: FeedImageCommentLoaderTask?
 
-	init(view: FeedImageCommentsView, loadingView: FeedImageCommentsLoadingView) {
+	init(view: FeedImageCommentsView,
+			 loadingView: FeedImageCommentsLoadingView,
+			 commentsLoaderTask: FeedImageCommentLoaderTask) {
 		self.view = view
 		self.loadingView = loadingView
+		self.commentsLoaderTask = commentsLoaderTask
 	}
 	
 	func didStartLoadingComments() {
@@ -48,6 +56,10 @@ final class FeedImageCommentsPresenter {
 		loadingView.display(.init(isLoading: false))
 	}
 	
+	func cancelCommentsLoaderTask() {
+		commentsLoaderTask?.cancel()
+	}
+	
 }
 
 class FeedImageCommentsPresenterTests: XCTestCase {
@@ -55,13 +67,13 @@ class FeedImageCommentsPresenterTests: XCTestCase {
 	typealias SUT = FeedImageCommentsPresenter
 
 	func test_init_doesNotSendAnyMessagesToView() {
-		let (_, view) = makeSUT()
+		let (_, view, _) = makeSUT()
 				
 		XCTAssert(view.messages.isEmpty, "Expected no view messages")
 	}
 	
 	func test_didStartLoadingComments_displaysLoadingIndicator() {
-		let (sut, view) = makeSUT()
+		let (sut, view, _) = makeSUT()
 		
 		sut.didStartLoadingComments()
 		
@@ -69,7 +81,7 @@ class FeedImageCommentsPresenterTests: XCTestCase {
 	}
 	
 	func test_didFinishLoadingComments_withComments_displaysCommentsAndStopsLoading() {
-		let (sut, view) = makeSUT()
+		let (sut, view, _) = makeSUT()
 		let comments = [FeedImageComment]()
 		
 		sut.didFinishLoadingComments(with: comments)
@@ -80,7 +92,7 @@ class FeedImageCommentsPresenterTests: XCTestCase {
 	}
 	
 	func test_didFinishLoadingComments_withError_stopsLoading() {
-		let (sut, view) = makeSUT()
+		let (sut, view, _) = makeSUT()
 		
 		sut.didFinishLoadingComments(with: anyNSError())
 		
@@ -88,16 +100,39 @@ class FeedImageCommentsPresenterTests: XCTestCase {
 									 [.display(isLoading: false)])
 	}
 	
+	func test_cancelCommentsLoaderTask_cancelsCommentsLoaderTask() {
+		let (sut, _, commentsLoaderTask) = makeSUT()
+		
+		sut.cancelCommentsLoaderTask()
+		
+		XCTAssertEqual(commentsLoaderTask.messages,
+									 [.cancel])
+	}
+	
 	// MARK: - Helpers
 	
-	private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: SUT, view: ViewSpy) {
+	private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: SUT, view: ViewSpy, cancelCommentsLoaderTask: FeedImageCommentLoaderTaskSpy) {
 		let view = ViewSpy()
-		let sut = SUT(view: view, loadingView: view)
+		let commentsLoaderTask = FeedImageCommentLoaderTaskSpy()
+		let sut = SUT(view: view, loadingView: view, commentsLoaderTask: commentsLoaderTask)
 		
 		trackForMemoryLeaks(sut)
 		trackForMemoryLeaks(view)
 		
-		return (sut, view)
+		return (sut, view, commentsLoaderTask)
+	}
+	
+	private class FeedImageCommentLoaderTaskSpy: FeedImageCommentLoaderTask {
+		
+		enum Message {
+			case cancel
+		}
+		
+		private(set) var messages = [Message]()
+		
+		func cancel() {
+			messages.append(.cancel)
+		}
 	}
 	
 	private class ViewSpy: FeedImageCommentsLoadingView, FeedImageCommentsView {
