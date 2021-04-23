@@ -8,10 +8,6 @@
 
 import Foundation
 
-public protocol FeedImageCommentsLoadingView {
-	func display(_ viewModel: FeedImageCommentLoadingViewModel)
-}
-
 public protocol FeedImageCommentsView: class {
 	func display(_ viewModel: FeedImageCommentsViewModel)
 }
