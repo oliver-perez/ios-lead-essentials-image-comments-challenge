@@ -9,67 +9,6 @@
 import XCTest
 import EssentialFeed
 
-public protocol FeedImageCommentLoaderTask {
-	func cancel()
-}
-
-struct FeedImageCommentLoadingViewModel {
-	let isLoading: Bool
-}
-
-protocol FeedImageCommentsLoadingView {
-	func display(_ viewModel: FeedImageCommentLoadingViewModel)
-}
-
-protocol FeedImageCommentsView: class {
-	func display(_ viewModel: FeedImageCommentsViewModel)
-}
-
-struct FeedImageCommentsViewModel {
-	let comments: [FeedImageComment]
-}
-
-final class FeedImageCommentsPresenter {
-	
-	private let view: FeedImageCommentsView
-	private let loadingView: FeedImageCommentsLoadingView
-	var commentsLoaderTask: FeedImageCommentLoaderTask?
-	
-	static var title: String {
-		NSLocalizedString(
-			"FEED_IMAGE_COMMENTS_TITLE",
-			tableName: "FeedImageComments",
-			bundle: Bundle(for: Self.self),
-			comment: "Title for the Feed Image Comments view")
-	}
-
-	init(view: FeedImageCommentsView,
-			 loadingView: FeedImageCommentsLoadingView,
-			 commentsLoaderTask: FeedImageCommentLoaderTask) {
-		self.view = view
-		self.loadingView = loadingView
-		self.commentsLoaderTask = commentsLoaderTask
-	}
-	
-	func didStartLoadingComments() {
-		loadingView.display(.init(isLoading: true))
-	}
-	
-	func didFinishLoadingComments(with comments: [FeedImageComment]) {
-		view.display(.init(comments: comments))
-		loadingView.display(.init(isLoading: false))
-	}
-	
-	func didFinishLoadingComments(with error: Error) {
-		loadingView.display(.init(isLoading: false))
-	}
-	
-	func cancelCommentsLoaderTask() {
-		commentsLoaderTask?.cancel()
-	}
-	
-}
-
 class FeedImageCommentsPresenterTests: XCTestCase {
 	
 	typealias SUT = FeedImageCommentsPresenter
