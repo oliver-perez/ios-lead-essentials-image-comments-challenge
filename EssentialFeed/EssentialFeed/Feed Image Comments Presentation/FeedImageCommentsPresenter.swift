@@ -8,10 +8,6 @@
 
 import Foundation
 
-public struct FeedImageCommentLoadingViewModel {
-	public let isLoading: Bool
-}
-
 public protocol FeedImageCommentsLoadingView {
 	func display(_ viewModel: FeedImageCommentLoadingViewModel)
 }
