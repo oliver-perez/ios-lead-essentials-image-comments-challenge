@@ -8,10 +8,6 @@
 
 import Foundation
 
-public struct FeedImageCommentsViewModel {
-	public let comments: [FeedImageComment]
-}
-
 public final class FeedImageCommentsPresenter {
 	
 	private let view: FeedImageCommentsView
