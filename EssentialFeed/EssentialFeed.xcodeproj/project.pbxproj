@@ -94,6 +94,7 @@
 		AC762390263287F900A36D79 /* FeedImageComments.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC16415A2631390D00DED9CB /* FeedImageComments.strings */; };
 		AC76239A2632883C00A36D79 /* FeedImageCommentLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7623992632883C00A36D79 /* FeedImageCommentLoadingViewModel.swift */; };
 		AC7623A02632885F00A36D79 /* FeedImageCommentsLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76239F2632885F00A36D79 /* FeedImageCommentsLoadingView.swift */; };
+		AC7623A62632888900A36D79 /* FeedImageCommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7623A52632888900A36D79 /* FeedImageCommentsView.swift */; };
 		AC793DAE260D9EA6001F9CD1 /* FeedImageCommentsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC793DAD260D9EA6001F9CD1 /* FeedImageCommentsMapper.swift */; };
 		AC96FA9826142D0400423B2B /* FeedImageCommentsViewControllerIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FA9726142D0400423B2B /* FeedImageCommentsViewControllerIntegrationTests.swift */; };
 		AC96FACA261439BF00423B2B /* UIControl+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FAC9261439BF00423B2B /* UIControl+TestHelpers.swift */; };
@@ -221,6 +222,7 @@
 		AC76238A263286C600A36D79 /* FeedImageCommentsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsPresenter.swift; sourceTree = "<group>"; };
 		AC7623992632883C00A36D79 /* FeedImageCommentLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentLoadingViewModel.swift; sourceTree = "<group>"; };
 		AC76239F2632885F00A36D79 /* FeedImageCommentsLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsLoadingView.swift; sourceTree = "<group>"; };
+		AC7623A52632888900A36D79 /* FeedImageCommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsView.swift; sourceTree = "<group>"; };
 		AC793DAD260D9EA6001F9CD1 /* FeedImageCommentsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsMapper.swift; sourceTree = "<group>"; };
 		AC96FA9726142D0400423B2B /* FeedImageCommentsViewControllerIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsViewControllerIntegrationTests.swift; sourceTree = "<group>"; };
 		AC96FAC9261439BF00423B2B /* UIControl+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+TestHelpers.swift"; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 				AC76238A263286C600A36D79 /* FeedImageCommentsPresenter.swift */,
 				AC7623992632883C00A36D79 /* FeedImageCommentLoadingViewModel.swift */,
 				AC76239F2632885F00A36D79 /* FeedImageCommentsLoadingView.swift */,
+				AC7623A52632888900A36D79 /* FeedImageCommentsView.swift */,
 			);
 			path = "Feed Image Comments Presentation";
 			sourceTree = "<group>";
@@ -838,6 +841,7 @@
 				087148B6232BEAAF00D6BE1A /* FeedPresenter.swift in Sources */,
 				0844769121FCBE7D00439BE9 /* URLSessionHTTPClient.swift in Sources */,
 				AC76238B263286C600A36D79 /* FeedImageCommentsPresenter.swift in Sources */,
+				AC7623A62632888900A36D79 /* FeedImageCommentsView.swift in Sources */,
 				08897BEF233A1C8E0029F5E4 /* HTTPURLResponse+StatusCode.swift in Sources */,
 				08285AFD228C1843000A8987 /* ManagedCache.swift in Sources */,
 				08285AF1228BF91E000A8987 /* CoreDataFeedStore.swift in Sources */,
