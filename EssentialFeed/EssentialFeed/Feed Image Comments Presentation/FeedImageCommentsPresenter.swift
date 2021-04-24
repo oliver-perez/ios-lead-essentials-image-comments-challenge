@@ -12,7 +12,7 @@ public final class FeedImageCommentsPresenter {
 	
 	private let view: FeedImageCommentsView
 	private let loadingView: FeedImageCommentsLoadingView
-	var commentsLoaderTask: FeedImageCommentLoaderTask?
+	public var commentsLoaderTask: FeedImageCommentLoaderTask?
 	
 	public static var title: String {
 		NSLocalizedString(
@@ -23,11 +23,9 @@ public final class FeedImageCommentsPresenter {
 	}
 
 	public init(view: FeedImageCommentsView,
-			 loadingView: FeedImageCommentsLoadingView,
-			 commentsLoaderTask: FeedImageCommentLoaderTask) {
+			 loadingView: FeedImageCommentsLoadingView) {
 		self.view = view
 		self.loadingView = loadingView
-		self.commentsLoaderTask = commentsLoaderTask
 	}
 	
 	public func didStartLoadingComments() {
