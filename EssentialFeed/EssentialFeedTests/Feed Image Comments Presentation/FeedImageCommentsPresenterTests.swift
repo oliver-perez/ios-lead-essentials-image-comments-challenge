@@ -65,7 +65,8 @@ class FeedImageCommentsPresenterTests: XCTestCase {
 	private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: SUT, view: ViewSpy, cancelCommentsLoaderTask: FeedImageCommentLoaderTaskSpy) {
 		let view = ViewSpy()
 		let commentsLoaderTask = FeedImageCommentLoaderTaskSpy()
-		let sut = SUT(view: view, loadingView: view, commentsLoaderTask: commentsLoaderTask)
+		let sut = SUT(view: view, loadingView: view)
+		sut.commentsLoaderTask = commentsLoaderTask
 		
 		trackForMemoryLeaks(sut)
 		trackForMemoryLeaks(view)

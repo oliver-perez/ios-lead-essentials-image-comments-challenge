@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EssentialFeed
 
 protocol FeedImageCommentsControllerDelegate {
 	func didRequestFeedRefresh()
@@ -33,7 +34,7 @@ public final class FeedImageCommentsViewController: UITableViewController, FeedI
 		delegate?.didRequestFeedRefresh()
 	}
 	
-	func display(_ viewModel: FeedImageCommentLoadingViewModel) {
+	public func display(_ viewModel: FeedImageCommentLoadingViewModel) {
 		
 		if viewModel.isLoading {
 			refreshControl?.beginRefreshing()
