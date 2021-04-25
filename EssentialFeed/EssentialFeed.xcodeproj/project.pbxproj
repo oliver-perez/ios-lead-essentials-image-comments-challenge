@@ -96,6 +96,7 @@
 		AC7623A02632885F00A36D79 /* FeedImageCommentsLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76239F2632885F00A36D79 /* FeedImageCommentsLoadingView.swift */; };
 		AC7623A62632888900A36D79 /* FeedImageCommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7623A52632888900A36D79 /* FeedImageCommentsView.swift */; };
 		AC7623AC263288B000A36D79 /* FeedImageCommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7623AB263288B000A36D79 /* FeedImageCommentsViewModel.swift */; };
+		AC7623B5263524FE00A36D79 /* FeedImageCommentsLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA619A262AA02100CD8CF7 /* FeedImageCommentsLocalizationTests.swift */; };
 		AC793DAE260D9EA6001F9CD1 /* FeedImageCommentsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC793DAD260D9EA6001F9CD1 /* FeedImageCommentsMapper.swift */; };
 		AC96FA9826142D0400423B2B /* FeedImageCommentsViewControllerIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FA9726142D0400423B2B /* FeedImageCommentsViewControllerIntegrationTests.swift */; };
 		AC96FACA261439BF00423B2B /* UIControl+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FAC9261439BF00423B2B /* UIControl+TestHelpers.swift */; };
@@ -104,7 +105,6 @@
 		AC96FAF72616E75100423B2B /* FeedImageCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FAED2616E4F400423B2B /* FeedImageCommentCell.swift */; };
 		ACAA6174262699AB00CD8CF7 /* FeedImageComments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACAA6173262699AB00CD8CF7 /* FeedImageComments.storyboard */; };
 		ACAA6184262A9DC700CD8CF7 /* FeedImageCommentsViewControllerIntegrationTests+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA6183262A9DC700CD8CF7 /* FeedImageCommentsViewControllerIntegrationTests+Localization.swift */; };
-		ACAA619B262AA02100CD8CF7 /* FeedImageCommentsLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA619A262AA02100CD8CF7 /* FeedImageCommentsLocalizationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -533,7 +533,6 @@
 				086AEFBA23A7E5B100EE8933 /* Helpers */,
 				086AEFB823A7DFA400EE8933 /* FeedSnapshotTests.swift */,
 				AC96FA9726142D0400423B2B /* FeedImageCommentsViewControllerIntegrationTests.swift */,
-				ACAA619A262AA02100CD8CF7 /* FeedImageCommentsLocalizationTests.swift */,
 			);
 			path = EssentialFeediOSTests;
 			sourceTree = "<group>";
@@ -580,6 +579,7 @@
 		AC164147262E692D00DED9CB /* Feed Image Comments Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				ACAA619A262AA02100CD8CF7 /* FeedImageCommentsLocalizationTests.swift */,
 				AC164148262E699000DED9CB /* FeedImageCommentsPresenterTests.swift */,
 			);
 			path = "Feed Image Comments Presentation";
@@ -857,6 +857,7 @@
 				08897BE8233910040029F5E4 /* LoadFeedImageDataFromRemoteUseCaseTests.swift in Sources */,
 				08DDC13A21BEA99E00F490ED /* LoadFeedFromRemoteUseCaseTests.swift in Sources */,
 				087148C0232BF27700D6BE1A /* FeedImagePresenterTests.swift in Sources */,
+				AC7623B5263524FE00A36D79 /* FeedImageCommentsLocalizationTests.swift in Sources */,
 				087546922272381700542C32 /* XCTestCase+FailableInsertFeedStoreSpecs.swift in Sources */,
 				086044FE233E1A90005ECD22 /* CacheFeedImageDataUseCaseTests.swift in Sources */,
 				087148BE232BEDFD00D6BE1A /* FeedLocalizationTests.swift in Sources */,
@@ -909,7 +910,6 @@
 				AC96FA9826142D0400423B2B /* FeedImageCommentsViewControllerIntegrationTests.swift in Sources */,
 				0800314923B6909A00720217 /* XCTestCase+Snapshot.swift in Sources */,
 				ACAA6184262A9DC700CD8CF7 /* FeedImageCommentsViewControllerIntegrationTests+Localization.swift in Sources */,
-				ACAA619B262AA02100CD8CF7 /* FeedImageCommentsLocalizationTests.swift in Sources */,
 				AC96FAD4261439C500423B2B /* UIRefreshControl+TestHelpers.swift in Sources */,
 				0800314723B68FAB00720217 /* UIViewController+Snapshot.swift in Sources */,
 				086AEFBC23A7E5C300EE8933 /* UIImage+TestHelpers.swift in Sources */,
