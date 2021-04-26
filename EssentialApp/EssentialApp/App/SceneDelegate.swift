@@ -53,10 +53,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 	
 	func configureWindow() {
+		let url = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed/v1/image/54F35D06-9CC6-4294-A0D8-963D397E8B98/comments")!
+		let feedImageCommentsLoader = RemoteFeedImageCommentsLoader(url: url, client: httpClient)
+		
 		window?.rootViewController = UINavigationController(
-			rootViewController: FeedUIComposer.feedComposedWith(
-				feedLoader: makeRemoteFeedLoaderWithLocalFallback,
-				imageLoader: makeLocalImageLoaderWithRemoteFallback))
+			rootViewController: FeedImageCommentsUIComposer.feedCommentsComposedWith(
+				commentsLoader: feedImageCommentsLoader))
 		
 		window?.makeKeyAndVisible()
 	}
