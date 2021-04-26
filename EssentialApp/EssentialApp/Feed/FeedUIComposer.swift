@@ -20,7 +20,7 @@ public final class FeedUIComposer {
 	public static func feedComposedWith(
 		feedLoader: @escaping () -> FeedLoader.Publisher,
 		imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher
-	) -> UIViewController {
+	) -> FeedViewController {
 		let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: feedLoader)
 		
 		let feedController = makeFeedViewController(
@@ -34,8 +34,7 @@ public final class FeedUIComposer {
 			loadingView: WeakRefVirtualProxy(feedController),
 			errorView: WeakRefVirtualProxy(feedController))
 		
-		let addTopBannerTo = addTopController(viewController: BannerViewController(), height: 200)
-		return addTopBannerTo(feedController)
+		return feedController
 	}
 	
 	private static func makeFeedViewController(delegate: FeedViewControllerDelegate, title: String) -> FeedViewController {

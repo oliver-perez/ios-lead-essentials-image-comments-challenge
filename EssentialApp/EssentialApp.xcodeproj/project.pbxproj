@@ -168,14 +168,10 @@
 		0895DA85234B3B950031BB2D /* EssentialApp */ = {
 			isa = PBXGroup;
 			children = (
-				0895DA86234B3B950031BB2D /* AppDelegate.swift */,
-				0895DA88234B3B950031BB2D /* SceneDelegate.swift */,
-				0835BF6C24850F9800A793D2 /* CombineHelpers.swift */,
-				08073B42238D2DF900A75DC6 /* FeedUIComposer.swift */,
-				08073B40238D2DF900A75DC6 /* WeakRefVirtualProxy.swift */,
-				08073B3F238D2DF900A75DC6 /* FeedImageDataLoaderPresentationAdapter.swift */,
-				08073B41238D2DF900A75DC6 /* FeedLoaderPresentationAdapter.swift */,
-				08073B43238D2DFA00A75DC6 /* FeedViewAdapter.swift */,
+				ACF2C9BC26366972002B6709 /* App */,
+				ACF2C9BB26366965002B6709 /* Helpers */,
+				ACF2C9BA26366958002B6709 /* Feed Image Comments */,
+				ACF2C9B926366941002B6709 /* Feed */,
 				0895DA8F234B3B970031BB2D /* Assets.xcassets */,
 				0895DA91234B3B970031BB2D /* LaunchScreen.storyboard */,
 				0895DA94234B3B970031BB2D /* Info.plist */,
@@ -202,6 +198,42 @@
 				0895DAAA234B3F7E0031BB2D /* EssentialFeediOS.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ACF2C9B926366941002B6709 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				08073B43238D2DFA00A75DC6 /* FeedViewAdapter.swift */,
+				08073B3F238D2DF900A75DC6 /* FeedImageDataLoaderPresentationAdapter.swift */,
+				08073B41238D2DF900A75DC6 /* FeedLoaderPresentationAdapter.swift */,
+				08073B42238D2DF900A75DC6 /* FeedUIComposer.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		ACF2C9BA26366958002B6709 /* Feed Image Comments */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Feed Image Comments";
+			sourceTree = "<group>";
+		};
+		ACF2C9BB26366965002B6709 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				08073B40238D2DF900A75DC6 /* WeakRefVirtualProxy.swift */,
+				0835BF6C24850F9800A793D2 /* CombineHelpers.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		ACF2C9BC26366972002B6709 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				0895DA88234B3B950031BB2D /* SceneDelegate.swift */,
+				0895DA86234B3B950031BB2D /* AppDelegate.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
