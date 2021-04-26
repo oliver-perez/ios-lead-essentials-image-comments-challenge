@@ -8,13 +8,14 @@
 
 import UIKit
 import EssentialFeed
+import EssentialFeediOS
 
 public final class FeedImageCommentsUIComposer {
 	
 	private init() {}
 	
 	public static func feedCommentsComposedWith(commentsLoader: FeedImageCommentsLoader) -> FeedImageCommentsViewController {
-		let presentationAdapter = FeedLoaderPresentationAdapter(commentsLoader: MainQueueDispatchDecorator(decoratee: commentsLoader))
+		let presentationAdapter = FeedImageLoaderPresentationAdapter(commentsLoader: MainQueueDispatchDecorator(decoratee: commentsLoader))
 				
 		let feedImageCommentsViewController = FeedImageCommentsViewController.makeWith(
 			delegate: presentationAdapter,
@@ -70,20 +71,6 @@ private extension FeedImageCommentsViewController {
 	}
 }
 
-private final class WeakRefVirtualProxy<T: AnyObject> {
-	private weak var object: T?
-	
-	init(_ object: T?) {
-		self.object = object
-	}
-}
-
-extension WeakRefVirtualProxy: FeedImageCommentsLoadingView where T: FeedImageCommentsLoadingView {
-	func display(_ viewModel: FeedImageCommentLoadingViewModel) {
-		object?.display(viewModel)
-	}
-}
-
 private final class FeedImageCommentsAdapter: FeedImageCommentsView {
 	
 	private weak var controller: FeedImageCommentsViewController?
@@ -100,7 +87,7 @@ private final class FeedImageCommentsAdapter: FeedImageCommentsView {
 
 }
 
-private final class FeedLoaderPresentationAdapter: FeedImageCommentsControllerDelegate {
+private final class FeedImageLoaderPresentationAdapter: FeedImageCommentsControllerDelegate {
 	
 	var presenter: FeedImageCommentsPresenter?
 	let commentsLoader: FeedImageCommentsLoader

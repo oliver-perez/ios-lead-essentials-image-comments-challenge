@@ -84,7 +84,6 @@
 		08EFE6BD22D6384100DA417A /* FeedImageCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EFE6BC22D6384100DA417A /* FeedImageCellController.swift */; };
 		08F8822D236499B200CAEE16 /* FeedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F8822C236499B200CAEE16 /* FeedCache.swift */; };
 		AC014F49261C12C200CE3393 /* FeedImageCommentsCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC014F48261C12C200CE3393 /* FeedImageCommentsCellController.swift */; };
-		AC014F50261C188900CE3393 /* FeedImageCommentsUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC014F4F261C188900CE3393 /* FeedImageCommentsUIComposer.swift */; };
 		AC164149262E699000DED9CB /* FeedImageCommentsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC164148262E699000DED9CB /* FeedImageCommentsPresenterTests.swift */; };
 		AC22EEF126031192001D4819 /* FeedImageComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22EEF026031192001D4819 /* FeedImageComment.swift */; };
 		AC22EEF72603130B001D4819 /* FeedImageCommentsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22EEF62603130B001D4819 /* FeedImageCommentsLoader.swift */; };
@@ -209,7 +208,6 @@
 		08F8822C236499B200CAEE16 /* FeedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCache.swift; sourceTree = "<group>"; };
 		08FC5AA922D5F47900148E12 /* FeedImageDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataLoader.swift; sourceTree = "<group>"; };
 		AC014F48261C12C200CE3393 /* FeedImageCommentsCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsCellController.swift; sourceTree = "<group>"; };
-		AC014F4F261C188900CE3393 /* FeedImageCommentsUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsUIComposer.swift; sourceTree = "<group>"; };
 		AC164148262E699000DED9CB /* FeedImageCommentsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsPresenterTests.swift; sourceTree = "<group>"; };
 		AC1641592631390D00DED9CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/FeedImageComments.strings; sourceTree = "<group>"; };
 		AC16415F2631391000DED9CB /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/FeedImageComments.strings; sourceTree = "<group>"; };
@@ -568,14 +566,6 @@
 			path = "Feed UI";
 			sourceTree = "<group>";
 		};
-		AC014F4E261C187900CE3393 /* Composers */ = {
-			isa = PBXGroup;
-			children = (
-				AC014F4F261C188900CE3393 /* FeedImageCommentsUIComposer.swift */,
-			);
-			path = Composers;
-			sourceTree = "<group>";
-		};
 		AC164147262E692D00DED9CB /* Feed Image Comments Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -610,7 +600,6 @@
 		AC96FADE2615912000423B2B /* Feed Image Comments UI */ = {
 			isa = PBXGroup;
 			children = (
-				AC014F4E261C187900CE3393 /* Composers */,
 				AC96FADF2615913600423B2B /* FeedImageCommentsViewController.swift */,
 				AC014F48261C12C200CE3393 /* FeedImageCommentsCellController.swift */,
 				ACAA6173262699AB00CD8CF7 /* FeedImageComments.storyboard */,
@@ -894,7 +883,6 @@
 				AC96FAE02615913600423B2B /* FeedImageCommentsViewController.swift in Sources */,
 				AC014F49261C12C200CE3393 /* FeedImageCommentsCellController.swift in Sources */,
 				0822D0F7230581D2004B3345 /* UIImageView+Animations.swift in Sources */,
-				AC014F50261C188900CE3393 /* FeedImageCommentsUIComposer.swift in Sources */,
 				08B5EB4E22CE244400FE8683 /* FeedImageCell.swift in Sources */,
 				08EFE6BD22D6384100DA417A /* FeedImageCellController.swift in Sources */,
 			);

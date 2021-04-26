@@ -9,19 +9,23 @@
 import UIKit
 import EssentialFeed
 
-protocol FeedImageCommentsControllerDelegate {
+public protocol FeedImageCommentsControllerDelegate {
 	func didRequestFeedRefresh()
 }
 
 public final class FeedImageCommentsViewController: UITableViewController, FeedImageCommentsLoadingView {
 	
-	var delegate: FeedImageCommentsControllerDelegate?
-	var cancelCommentsLoaderTask: (() -> Void)?
+	public var delegate: FeedImageCommentsControllerDelegate?
+	public var cancelCommentsLoaderTask: (() -> Void)?
 	
-	var tableModel = [FeedImageCommentsCellController]() {
+	public var tableModel = [FeedImageCommentsCellController]() {
 		didSet {
 			tableView.reloadData()
 		}
+	}
+	
+	convenience init() {
+		self.init()
 	}
 	
 	public override func viewDidLoad() {
