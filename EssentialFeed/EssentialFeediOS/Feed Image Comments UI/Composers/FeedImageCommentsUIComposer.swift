@@ -15,7 +15,7 @@ public final class FeedImageCommentsUIComposer {
 	private init() {}
 	
 	public static func feedCommentsComposedWith(commentsLoader: FeedImageCommentsLoader) -> FeedImageCommentsViewController {
-		let presentationAdapter = FeedImageLoaderPresentationAdapter(commentsLoader: MainQueueDispatchDecorator(decoratee: commentsLoader))
+		let presentationAdapter = FeedImageCommentsLoaderPresentationAdapter(commentsLoader: MainQueueDispatchDecorator(decoratee: commentsLoader))
 				
 		let feedImageCommentsViewController = FeedImageCommentsViewController.makeWith(
 			delegate: presentationAdapter,
@@ -87,7 +87,7 @@ private final class FeedImageCommentsAdapter: FeedImageCommentsView {
 
 }
 
-private final class FeedImageLoaderPresentationAdapter: FeedImageCommentsControllerDelegate {
+private final class FeedImageCommentsLoaderPresentationAdapter: FeedImageCommentsControllerDelegate {
 	
 	var presenter: FeedImageCommentsPresenter?
 	let commentsLoader: FeedImageCommentsLoader
