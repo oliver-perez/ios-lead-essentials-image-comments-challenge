@@ -38,7 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	private lazy var localImageLoader: LocalFeedImageDataLoader = {
 		LocalFeedImageDataLoader(store: store)
 	}()
-	
+			
 	convenience init(httpClient: HTTPClient, store: FeedStore & FeedImageDataStore) {
 		self.init()
 		self.httpClient = httpClient
@@ -53,12 +53,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 	
 	func configureWindow() {
-		let url = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed/v1/image/54F35D06-9CC6-4294-A0D8-963D397E8B98/comments")!
-		let feedImageCommentsLoader = RemoteFeedImageCommentsLoader(url: url, client: httpClient)
+		let navigationController = UINavigationController()
+		let feedNavigationAdapter = NavigationAdapter(
+			feedImageCommentsCoordinator: FeedImageCommentsCoordinator(
+				navigationController: navigationController,
+				httpClient: httpClient))
 		
-		window?.rootViewController = UINavigationController(
-			rootViewController: FeedImageCommentsUIComposer.feedCommentsComposedWith(
-				commentsLoader: feedImageCommentsLoader))
+		let feedViewController = FeedUIComposer.feedComposedWith(
+			feedLoader: makeRemoteFeedLoaderWithLocalFallback,
+			imageLoader: makeLocalImageLoaderWithRemoteFallback,
+			navigationAdapter: feedNavigationAdapter)
+		
+		navigationController.pushViewController(feedViewController, animated: false)
+		
+		window?.rootViewController = navigationController
 		
 		window?.makeKeyAndVisible()
 	}
@@ -82,5 +90,44 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 					.loadImageDataPublisher(from: url)
 					.caching(to: localImageLoader, using: url)
 			})
+	}
+
+}
+
+final class FeedImageCommentsCoordinator {
+	let navigationController: UINavigationController
+	let httpClient: HTTPClient
+	
+	init(navigationController: UINavigationController, httpClient: HTTPClient) {
+		self.navigationController = navigationController
+		self.httpClient = httpClient
+	}
+	
+	func start(with imageId: UUID) {
+		let feedImageCommentsViewController = FeedImageCommentsUIComposer
+			.feedCommentsComposedWith(commentsLoader: makeFeedImageCommentsLoader(url: makeURL(with: imageId)))
+		
+		navigationController.pushViewController(feedImageCommentsViewController, animated: true)
+	}
+	
+	private func makeURL(with imageId: UUID) -> URL {
+		URL(string: "https://ile-api.essentialdeveloper.com/essential-feed/v1/image/\(imageId)/comments")!
+	}
+	
+	private func makeFeedImageCommentsLoader(url: URL) -> FeedImageCommentsLoader {
+		RemoteFeedImageCommentsLoader(url: url, client: httpClient)
+	}
+}
+
+final class NavigationAdapter: FeedNavigationAdapter {
+	
+	private let feedImageCommentsCoordinator: FeedImageCommentsCoordinator
+	
+	init(feedImageCommentsCoordinator: FeedImageCommentsCoordinator) {
+		self.feedImageCommentsCoordinator = feedImageCommentsCoordinator
+	}
+	
+	func showComments(for imageId: UUID) {
+		feedImageCommentsCoordinator.start(with: imageId)
 	}
 }
