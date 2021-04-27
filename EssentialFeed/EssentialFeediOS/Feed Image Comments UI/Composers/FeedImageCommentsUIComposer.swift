@@ -22,7 +22,7 @@ public final class FeedImageCommentsUIComposer {
 			title: FeedImageCommentsPresenter.title,
 			cancelCommentsLoaderTask: presentationAdapter.cancelCommentsLoaderTask)
 		
-		let presenter = FeedImageCommentsPresenter(view: FeedImageCommentsAdapter(controller: feedImageCommentsViewController), loadingView:  WeakRefVirtualProxy(feedImageCommentsViewController))
+		let presenter = FeedImageCommentsPresenter(view: FeedImageCommentsAdapter(controller: feedImageCommentsViewController), loadingView: WeakRefVirtualProxy(feedImageCommentsViewController))
 		
 		presentationAdapter.presenter = presenter
 				
