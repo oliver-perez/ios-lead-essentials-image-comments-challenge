@@ -9,6 +9,7 @@
 import XCTest
 import EssentialFeediOS
 import EssentialFeed
+import EssentialApp
 
 class FeedImageCommentsViewControllerIntegrationTests: XCTestCase {
 	typealias SUT = FeedImageCommentsViewController
@@ -18,7 +19,7 @@ class FeedImageCommentsViewControllerIntegrationTests: XCTestCase {
 		
 		sut.loadViewIfNeeded()
 		
-		XCTAssertEqual(sut.title, localized("FEED_IMAGE_COMMENTS_TITLE"))
+		XCTAssertEqual(sut.title, localizedForKey("FEED_IMAGE_COMMENTS_TITLE"))
 	}
 	
 	func test_loadFeedImageCommentsActions_requestCommentsFromLoader() {
@@ -122,6 +123,8 @@ class FeedImageCommentsViewControllerIntegrationTests: XCTestCase {
 		
 		return (sut, loader)
 	}
+	
+	let localizedForKey = localized(in: Bundle(for: FeedImageCommentsPresenter.self), table: "FeedImageComments")
 	
 	private func assertThat(_ sut: SUT, isRendering comments: [FeedImageComment], file: StaticString = #filePath, line: UInt = #line) {
 		guard sut.numberOfRenderedComments() == comments.count else {

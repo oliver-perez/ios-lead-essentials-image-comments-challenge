@@ -105,6 +105,7 @@ private extension FeedViewController {
 }
 
 private class ImageStub: FeedImageCellControllerDelegate {
+	
 	let viewModel: FeedImageViewModel<UIImage>
 	weak var controller: FeedImageCellController?
 	
@@ -122,4 +123,6 @@ private class ImageStub: FeedImageCellControllerDelegate {
 	}
 	
 	func didCancelImageRequest() {}
+	
+	func didSelectImage() {}
 }

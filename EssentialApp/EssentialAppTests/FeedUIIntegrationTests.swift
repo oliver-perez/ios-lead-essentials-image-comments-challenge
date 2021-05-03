@@ -15,7 +15,7 @@ final class FeedUIIntegrationTests: XCTestCase {
 		
 		sut.loadViewIfNeeded()
 		
-		XCTAssertEqual(sut.title, localized("FEED_VIEW_TITLE"))
+		XCTAssertEqual(sut.title, localizedForKey("FEED_VIEW_TITLE"))
 	}
 	
 	func test_loadFeedActions_requestFeedFromLoader() {
@@ -100,7 +100,7 @@ final class FeedUIIntegrationTests: XCTestCase {
 		XCTAssertEqual(sut.errorMessage, nil)
 		
 		loader.completeFeedLoadingWithError(at: 0)
-		XCTAssertEqual(sut.errorMessage, localized("FEED_VIEW_CONNECTION_ERROR"))
+		XCTAssertEqual(sut.errorMessage, localizedForKey("FEED_VIEW_CONNECTION_ERROR"))
 		
 		sut.simulateUserInitiatedFeedReload()
 		XCTAssertEqual(sut.errorMessage, nil)
@@ -334,4 +334,7 @@ final class FeedUIIntegrationTests: XCTestCase {
 	private func anyImageData() -> Data {
 		return UIImage.make(withColor: .red).pngData()!
 	}
+	
+	let localizedForKey = localized(in: Bundle(for: FeedPresenter.self), table: "Feed")
+	
 }

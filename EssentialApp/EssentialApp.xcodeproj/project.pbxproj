@@ -38,6 +38,7 @@
 		0895DAAD234B3F7E0031BB2D /* EssentialFeediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0895DAAA234B3F7E0031BB2D /* EssentialFeediOS.framework */; };
 		0895DAAE234B3F7E0031BB2D /* EssentialFeediOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0895DAAA234B3F7E0031BB2D /* EssentialFeediOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AC96FAB42614371400423B2B /* UIRefreshControl+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96FAB32614371300423B2B /* UIRefreshControl+TestHelpers.swift */; };
+		ACD02464263FAF4200959051 /* FeedImageCommentsViewControllerIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD02463263FAF4100959051 /* FeedImageCommentsViewControllerIntegrationTests.swift */; };
 		ACF2C9BF26366A6B002B6709 /* FeedImageCommentsUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2C9BE26366A6B002B6709 /* FeedImageCommentsUIComposer.swift */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,7 @@
 		08FF35DB2534688B00DB6ABC /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		08FF35DD2534688E00DB6ABC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		AC96FAB32614371300423B2B /* UIRefreshControl+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIRefreshControl+TestHelpers.swift"; path = "../../../EssentialFeed/EssentialFeediOSTests/Helpers/UIRefreshControl+TestHelpers.swift"; sourceTree = "<group>"; };
+		ACD02463263FAF4100959051 /* FeedImageCommentsViewControllerIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCommentsViewControllerIntegrationTests.swift; sourceTree = "<group>"; };
 		ACF2C9BE26366A6B002B6709 /* FeedImageCommentsUIComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedImageCommentsUIComposer.swift; path = "../../../EssentialFeed/EssentialFeediOS/Feed Image Comments UI/Composers/FeedImageCommentsUIComposer.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -184,6 +186,7 @@
 		0895DA9C234B3B980031BB2D /* EssentialAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				ACD02463263FAF4100959051 /* FeedImageCommentsViewControllerIntegrationTests.swift */,
 				0895DA9F234B3B980031BB2D /* Info.plist */,
 				082C00022359E43F008927D3 /* Helpers */,
 				0832C9CF238D2811002314C9 /* SceneDelegateTests.swift */,
@@ -372,6 +375,7 @@
 				0851CDAC239AB13100C19B1D /* HTTPClientStub.swift in Sources */,
 				08073B54238D2E1000A75DC6 /* FeedImageCell+TestHelpers.swift in Sources */,
 				AC96FAB42614371400423B2B /* UIRefreshControl+TestHelpers.swift in Sources */,
+				ACD02464263FAF4200959051 /* FeedImageCommentsViewControllerIntegrationTests.swift in Sources */,
 				08367CD82486FB51009CD536 /* UIView+TestHelpers.swift in Sources */,
 				08073B5F238D2FF100A75DC6 /* FeedAcceptanceTests.swift in Sources */,
 				08073B5D238D2E2600A75DC6 /* FeedUIIntegrationTests.swift in Sources */,
