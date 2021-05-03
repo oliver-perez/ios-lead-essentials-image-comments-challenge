@@ -94,11 +94,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
-final class FeedImageCommentsCoordinator {
+public final class FeedImageCommentsCoordinator {
 	let navigationController: UINavigationController
 	let httpClient: HTTPClient
 	
-	init(navigationController: UINavigationController, httpClient: HTTPClient) {
+	public init(navigationController: UINavigationController, httpClient: HTTPClient) {
 		self.navigationController = navigationController
 		self.httpClient = httpClient
 	}
@@ -119,15 +119,15 @@ final class FeedImageCommentsCoordinator {
 	}
 }
 
-final class NavigationAdapter: FeedNavigationAdapter {
+public final class NavigationAdapter: FeedNavigationAdapter {
 	
 	private let feedImageCommentsCoordinator: FeedImageCommentsCoordinator
 	
-	init(feedImageCommentsCoordinator: FeedImageCommentsCoordinator) {
+	public init(feedImageCommentsCoordinator: FeedImageCommentsCoordinator) {
 		self.feedImageCommentsCoordinator = feedImageCommentsCoordinator
 	}
 	
-	func showComments(for imageId: UUID) {
+	public func showComments(for imageId: UUID) {
 		feedImageCommentsCoordinator.start(with: imageId)
 	}
 }
